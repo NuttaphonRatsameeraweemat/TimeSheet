@@ -42,7 +42,7 @@ namespace TimeSheet.API.Controllers
         [HttpGet]
         public IActionResult Get(int month)
         {
-            return Ok(_timeSheet.Get(_token.EmpNo, month));
+            return Ok(_timeSheet.Get(_token?.EmpNo, month));
         }
 
         [HttpPost]
