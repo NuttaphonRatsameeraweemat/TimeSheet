@@ -12,7 +12,7 @@ namespace TimeSheet.API
     {
         public Startup(IConfiguration configuration)
         {
-            NLog.LogManager.LoadConfiguration(string.Concat(System.IO.Directory.GetCurrentDirectory(), "/nlog.config"));
+            //NLog.LogManager.LoadConfiguration(string.Concat(System.IO.Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
