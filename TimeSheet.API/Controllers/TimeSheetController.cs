@@ -16,10 +16,6 @@ namespace TimeSheet.API.Controllers
         /// The Login manager provides Login functionality.
         /// </summary>
         private ITimeSheetBll _timeSheet;
-        /// <summary>
-        /// The ClaimsIdentity in token management.
-        /// </summary>
-        private IManageToken _token;
 
         #endregion
 
@@ -29,10 +25,9 @@ namespace TimeSheet.API.Controllers
         ///  Initializes a new instance of the <see cref="TimeSheetController" /> class.
         /// </summary>
         /// <param name="login"></param>
-        public TimeSheetController(ITimeSheetBll timeSheet, IManageToken token)
+        public TimeSheetController(ITimeSheetBll timeSheet)
         {
             _timeSheet = timeSheet;
-            _token = token;
         }
 
         #endregion
