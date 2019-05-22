@@ -8,7 +8,6 @@ namespace TimeSheet.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class ValueHelpController : ControllerBase
     {
 
