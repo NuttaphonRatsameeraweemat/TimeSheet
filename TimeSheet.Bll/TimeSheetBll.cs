@@ -41,38 +41,38 @@ namespace TimeSheet.Bll
                 {
                     new TaskModel
                     {
-                        Project = "DS",
+                        Project = "P001",
                         Type = new List<TypeModel>
                         {
                             new TypeModel
                             {
-                                TypeName = "Support",
+                                TypeName = "T001",
                                 TimeStamp = new List<TimeStampModel>
                                 {
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,1), WorkingHours = 2 },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,2), WorkingHours = 2 },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,3), WorkingHours = 2 },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,4), WorkingHours = 2 },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,5), WorkingHours = 2 }
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,1), WorkingHours = 2, Description = "Change Requirement Logic BS" },
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,2), WorkingHours = 2, Description = "Change Requirement Logic CA" },
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,3), WorkingHours = 2, Description = "Change Requirement Logic PV" },
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,4), WorkingHours = 2, Description = "Fixed Issue" },
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,5), WorkingHours = 2, Description = "Fixed Data Dup" }
                                 }
                             }
                         }
                     },
                     new TaskModel
                     {
-                        Project = "SmartForm",
+                        Project = "P002",
                         Type = new List<TypeModel>
                         {
                             new TypeModel
                             {
-                                TypeName = "POC",
+                                TypeName = "T002",
                                 TimeStamp = new List<TimeStampModel>
                                 {
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,1), WorkingHours = 6 },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,2), WorkingHours = 6 },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,3), WorkingHours = 6 },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,4), WorkingHours = 6 },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,5), WorkingHours = 6 }
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,1), WorkingHours = 6, Description = "Setup Project" },
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,2), WorkingHours = 6, Description = "Setup SmartObject" },
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,3), WorkingHours = 6, Description = "Setup SmartForm" },
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,4), WorkingHours = 6, Description = "Setup Workflow" },
+                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,5), WorkingHours = 6, Description = "Testing" }
                                 }
                             }
                         }

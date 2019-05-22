@@ -25,6 +25,7 @@ namespace TimeSheet.API
             services.ConfigureBll();
             services.ConfigureLoggerService();
             services.ConfigureCors();
+            services.ConfigureJwtAuthen(Configuration);
             services.ConfigureCookieAuthen(Configuration);
             services.AddAutoMapper();
             services.AddMvc(opt =>
