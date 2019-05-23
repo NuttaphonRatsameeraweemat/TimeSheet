@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -18,6 +19,8 @@ using TimeSheet.Helper.Interfaces;
 using TimeSheet.Helper;
 using TimeSheet.Bll.Interfaces;
 using TimeSheet.Bll;
+using TimeSheet.Data;
+using TimeSheet.Data.Repository.Interfaces;
 
 namespace TimeSheet.API.Extensions
 {
@@ -31,7 +34,11 @@ namespace TimeSheet.API.Extensions
         /// <param name="Configuration">The configuration from settinfile.</param>
         public static void ConfigureRepository(this IServiceCollection services, IConfiguration Configuration)
         {
+            services.AddEntityFrameworkSqlServer()
+             .AddDbContext<TSContext>(options =>
+              options.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"]));
 
+            services.AddTransient<IUnitOfWork, TSUnitOfWork>();
         }
 
         /// <summary>

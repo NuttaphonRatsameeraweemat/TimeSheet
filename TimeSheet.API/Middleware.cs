@@ -87,7 +87,7 @@ namespace TimeSheet.API
         /// <param name="httpContext"></param>
         /// <param name="exception"></param>
         /// <returns></returns>
-        private static Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
+        private Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;

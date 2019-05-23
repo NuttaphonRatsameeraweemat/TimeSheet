@@ -9,5 +9,6 @@ namespace TimeSheet.Bll.Interfaces
     {
         string BuildToken(string aduser);
         bool Authenticate(LoginViewModel login);
+        IEnumerable<TimeSheet.Data.Pocos.TimeSheet> TestConnection();
     }
 }

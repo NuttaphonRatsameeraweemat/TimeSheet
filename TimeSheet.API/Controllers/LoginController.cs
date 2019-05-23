@@ -61,6 +61,14 @@ namespace TimeSheet.API.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("TestConnection")]
+        [AllowAnonymous]
+        public IActionResult TestConnection()
+        {
+            return Ok(_login.TestConnection());
+        }
+
         #endregion
 
     }

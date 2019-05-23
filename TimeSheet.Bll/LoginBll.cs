@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TimeSheet.Data.Pocos;
+using TimeSheet.Data.Repository.Interfaces;
 
 namespace TimeSheet.Bll
 {
@@ -19,6 +21,10 @@ namespace TimeSheet.Bll
         /// The config value in appsetting.json
         /// </summary>
         private readonly IConfiguration _config;
+        /// <summary>
+        /// The utilities unit of work for manipulating utilities data in database.
+        /// </summary>
+        private readonly IUnitOfWork _unitOfWork;
 
         #endregion
 
@@ -28,9 +34,10 @@ namespace TimeSheet.Bll
         /// Initializes a new instance of the <see cref="LoginBll" /> class.
         /// </summary>
         /// <param name="config">The config value.</param>
-        public LoginBll(IConfiguration config)
+        public LoginBll(IConfiguration config, IUnitOfWork unitOfWork)
         {
             _config = config;
+            _unitOfWork = unitOfWork;
         }
 
         #endregion
@@ -71,6 +78,11 @@ namespace TimeSheet.Bll
               claims: identity.Claims);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public IEnumerable<Data.Pocos.TimeSheet> TestConnection()
+        {
+            return _unitOfWork.GetRepository<TimeSheet.Data.Pocos.TimeSheet>().Get();
         }
 
         #endregion

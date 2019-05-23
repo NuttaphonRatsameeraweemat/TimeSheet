@@ -22,6 +22,7 @@ namespace TimeSheet.API
         public void ConfigureServices(IServiceCollection services)
         {
             //Add Configure Extension and Bll class.
+            services.ConfigureRepository(Configuration);
             services.ConfigureBll();
             services.ConfigureHttpContextAccessor();
             services.ConfigureLoggerService();
