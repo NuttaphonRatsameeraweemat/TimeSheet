@@ -23,6 +23,7 @@ namespace TimeSheet.API
         {
             //Add Configure Extension and Bll class.
             services.ConfigureBll();
+            services.ConfigureHttpContextAccessor();
             services.ConfigureLoggerService();
             services.ConfigureCors();
             services.ConfigureJwtAuthen(Configuration);
