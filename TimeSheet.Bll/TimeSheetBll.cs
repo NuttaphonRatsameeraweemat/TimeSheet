@@ -37,44 +37,41 @@ namespace TimeSheet.Bll
         {
             return new TimeSheetViewModel
             {
-                TaskList = new List<TaskModel>
+                TimeSheet = new List<TimeSheetModel>
                 {
-                    new TaskModel
-                    {
-                        Project = "P001",
-                        Type = new List<TypeModel>
-                        {
-                            new TypeModel
-                            {
-                                TypeName = "T001",
-                                TimeStamp = new List<TimeStampModel>
-                                {
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,1), WorkingHours = 2, Description = "Change Requirement Logic BS" },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,2), WorkingHours = 2, Description = "Change Requirement Logic CA" },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,3), WorkingHours = 2, Description = "Change Requirement Logic PV" },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,4), WorkingHours = 2, Description = "Fixed Issue" },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,5), WorkingHours = 2, Description = "Fixed Data Dup" }
-                                }
-                            }
+                    new TimeSheetModel{
+                        DateTimeStamp = new DateTime(2019,5,1).ToString("yyyy-MM-dd"),
+                        TaskList = new List<TaskListModel>{
+                            new TaskListModel{ ProjectCode = "P001", TypeCode = "T001", Description = "Change Requirement Logic BS", WorkingHours = 2 },
+                            new TaskListModel{ ProjectCode = "P002", TypeCode = "T002", Description = "Setup Project", WorkingHours = 6 }
                         }
                     },
-                    new TaskModel
-                    {
-                        Project = "P002",
-                        Type = new List<TypeModel>
-                        {
-                            new TypeModel
-                            {
-                                TypeName = "T002",
-                                TimeStamp = new List<TimeStampModel>
-                                {
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,1), WorkingHours = 6, Description = "Setup Project" },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,2), WorkingHours = 6, Description = "Setup SmartObject" },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,3), WorkingHours = 6, Description = "Setup SmartForm" },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,4), WorkingHours = 6, Description = "Setup Workflow" },
-                                    new TimeStampModel{ DateTimeStamp = new DateTime(2019,5,5), WorkingHours = 6, Description = "Testing" }
-                                }
-                            }
+                    new TimeSheetModel{
+                        DateTimeStamp = new DateTime(2019,5,2).ToString("yyyy-MM-dd"),
+                        TaskList = new List<TaskListModel>{
+                            new TaskListModel{ ProjectCode = "P001", TypeCode = "T001", Description = "Change Requirement Logic CA", WorkingHours = 2 },
+                            new TaskListModel{ ProjectCode = "P002", TypeCode = "T002", Description = "Setup SmartObject", WorkingHours = 6 }
+                        }
+                    },
+                    new TimeSheetModel{
+                        DateTimeStamp = new DateTime(2019,5,3).ToString("yyyy-MM-dd"),
+                        TaskList = new List<TaskListModel>{
+                            new TaskListModel{ ProjectCode = "P001", TypeCode = "T001", Description = "Change Requirement Logic PV", WorkingHours = 2 },
+                            new TaskListModel{ ProjectCode = "P002", TypeCode = "T002", Description = "Setup SmartForm", WorkingHours = 6 }
+                        }
+                    },
+                    new TimeSheetModel{
+                        DateTimeStamp = new DateTime(2019,5,6).ToString("yyyy-MM-dd"),
+                        TaskList = new List<TaskListModel>{
+                            new TaskListModel{ ProjectCode = "P001", TypeCode = "T001", Description = "Fixed Issue", WorkingHours = 2 },
+                            new TaskListModel{ ProjectCode = "P002", TypeCode = "T002", Description = "Setup Workflow", WorkingHours = 6 }
+                        }
+                    },
+                    new TimeSheetModel{
+                        DateTimeStamp = new DateTime(2019,5,7).ToString("yyyy-MM-dd"),
+                        TaskList = new List<TaskListModel>{
+                            new TaskListModel{ ProjectCode = "P001", TypeCode = "T001", Description = "Fixed Data Dup", WorkingHours = 2 },
+                            new TaskListModel{ ProjectCode = "P002", TypeCode = "T002", Description = "Testing", WorkingHours = 6 }
                         }
                     }
                 }

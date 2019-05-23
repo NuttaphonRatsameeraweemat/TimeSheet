@@ -7,24 +7,19 @@ namespace TimeSheet.Bll.Models
     public class TimeSheetViewModel
     {
         public bool IsSubmit { get; set; }
-        public List<TaskModel> TaskList { get; set; }
+        public List<TimeSheetModel> TimeSheet { get; set; }
     }
 
-    public class TaskModel
+    public class TimeSheetModel
     {
-        public string Project { get; set; }
-        public List<TypeModel> Type { get; set; }
+        public string DateTimeStamp { get; set; }
+        public List<TaskListModel> TaskList { get; set; }
     }
 
-    public class TypeModel
+    public class TaskListModel
     {
-        public string TypeName { get; set; }
-        public List<TimeStampModel> TimeStamp { get; set; }
-    }
-    
-    public class TimeStampModel
-    {
-        public DateTime DateTimeStamp { get; set; }
+        public string ProjectCode { get; set; }
+        public string TypeCode { get; set; }
         public int WorkingHours { get; set; }
         public string Description { get; set; }
     }
