@@ -7,6 +7,7 @@ namespace TimeSheet.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class TimeSheetController : ControllerBase
     {
 
@@ -16,6 +17,10 @@ namespace TimeSheet.API.Controllers
         /// The Login manager provides Login functionality.
         /// </summary>
         private ITimeSheetBll _timeSheet;
+        /// <summary>
+        /// The ClaimsIdentity in token management.
+        /// </summary>
+        private IManageToken _token;
 
         #endregion
 
@@ -25,9 +30,10 @@ namespace TimeSheet.API.Controllers
         ///  Initializes a new instance of the <see cref="TimeSheetController" /> class.
         /// </summary>
         /// <param name="login"></param>
-        public TimeSheetController(ITimeSheetBll timeSheet)
+        public TimeSheetController(ITimeSheetBll timeSheet, IManageToken token)
         {
             _timeSheet = timeSheet;
+            _token = token;
         }
 
         #endregion
@@ -37,7 +43,7 @@ namespace TimeSheet.API.Controllers
         [HttpGet]
         public IActionResult Get(int month)
         {
-            return Ok(_timeSheet.Get("", month));
+            return Ok(_timeSheet.Get(_token.EmpNo, month));
         }
 
         [HttpPost]
