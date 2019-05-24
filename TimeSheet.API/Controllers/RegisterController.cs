@@ -41,7 +41,28 @@ namespace TimeSheet.API.Controllers
         [HttpPost]
         public IActionResult Register([FromBody]RegisterViewModel formData)
         {
-            return Ok(_register.Register(formData));
+            IActionResult actionResult;
+            var result = _register.Register(formData);
+            if (result.IsError)
+            {
+                actionResult = Conflict(result);
+            }
+            else actionResult = Ok(result);
+            return actionResult;
+        }
+
+        [HttpPost]
+        [Route("ValidateEmail")]
+        public IActionResult ValidateEmail([FromBody]string email)
+        {
+            IActionResult actionResult;
+            var result = _register.ValidateEmail(email);
+            if (result.IsError)
+            {
+                actionResult = Conflict(result);
+            }
+            else actionResult = Ok(result);
+            return actionResult;
         }
 
         #endregion

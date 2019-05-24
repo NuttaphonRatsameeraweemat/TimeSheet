@@ -7,6 +7,7 @@ using TimeSheet.Bll.Models;
 using TimeSheet.Data.Repository.Interfaces;
 using TimeSheet.Data.Pocos;
 using System.Transactions;
+using System.Linq;
 
 namespace TimeSheet.Bll
 {
@@ -49,12 +50,15 @@ namespace TimeSheet.Bll
         /// <returns></returns>
         public ResultViewModel Register(RegisterViewModel formData)
         {
-            var result = new ResultViewModel();
-            using (TransactionScope scope = new TransactionScope())
+            var result = ValidateEmail(formData.Email);
+            if (!result.IsError)
             {
-                this.SaveEmployee(formData);
-                this.SavePassword(formData);
-                scope.Complete();
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    this.SaveEmployee(formData);
+                    this.SavePassword(formData);
+                    scope.Complete();
+                }
             }
             return result;
         }
@@ -80,6 +84,23 @@ namespace TimeSheet.Bll
             var data = new Password { Email = formData.Email, Password1 = password.GetHash() };
             _unitOfWork.GetRepository<Password>().Add(data);
             _unitOfWork.Complete();
+        }
+
+        /// <summary>
+        /// Validate Email is already have in database or not.
+        /// </summary>
+        /// <param name="email">The employee email.</param>
+        /// <returns></returns>
+        public ResultViewModel ValidateEmail(string email)
+        {
+            var result = new ResultViewModel();
+            var data = _unitOfWork.GetRepository<Employee>().Get(x => x.Email == email).FirstOrDefault();
+            if (data != null)
+            {
+                result.IsError = true;
+                result.Message = "This email is already.";
+            }
+            return result;
         }
 
         #endregion
