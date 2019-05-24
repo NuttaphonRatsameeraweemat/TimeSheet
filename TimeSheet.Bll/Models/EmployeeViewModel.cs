@@ -10,6 +10,7 @@ namespace TimeSheet.Bll.Models
         public string Name { get; set; }
         public string Role { get; set; }
         public string StartWorkingDay { get; set; }
+        public int TotalWorking { get; set; }
         public string TelNo { get; set; }
         public string Token { get; set; }
     }
