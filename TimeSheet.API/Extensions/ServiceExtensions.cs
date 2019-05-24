@@ -50,6 +50,7 @@ namespace TimeSheet.API.Extensions
             services.AddScoped<ILoginBll, LoginBll>();
             services.AddScoped<ITimeSheetBll, TimeSheetBll>();
             services.AddScoped<IValueHelpBll, ValueHelpBll>();
+            services.AddScoped<IRegisterBll, RegisterBll>();
             services.AddScoped<IManageToken, ManageToken>();
         }
 

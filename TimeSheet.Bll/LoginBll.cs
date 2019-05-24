@@ -9,6 +9,8 @@ using System.Security.Claims;
 using System.Text;
 using TimeSheet.Data.Pocos;
 using TimeSheet.Data.Repository.Interfaces;
+using System.Linq;
+using TimeSheet.Bll.Components;
 
 namespace TimeSheet.Bll
 {
@@ -25,6 +27,10 @@ namespace TimeSheet.Bll
         /// The utilities unit of work for manipulating utilities data in database.
         /// </summary>
         private readonly IUnitOfWork _unitOfWork;
+        /// <summary>
+        /// The ClaimsIdentity.
+        /// </summary>
+        private ClaimsIdentity _identity;
 
         #endregion
 
@@ -47,16 +53,61 @@ namespace TimeSheet.Bll
         /// <summary>
         /// Validate username and password is valid.
         /// </summary>
-        /// <param name="login"></param>
+        /// <param name="login">The login value.</param>
         /// <returns></returns>
-        public bool Authenticate(LoginViewModel login)
+        public bool Authenticate(LoginViewModel login, EmployeeViewModel model)
         {
             bool result = false;
-            if (login.Username == _config["Authen:Username"] && login.Password == _config["Authen:Password"])
+            var data = _unitOfWork.GetRepository<Employee>().Get(x => x.Email == login.Username).FirstOrDefault();
+            if (data != null && ValidatePassword(login))
             {
                 result = true;
+                this.ManageClaimsIdentity(data, model);
+                this.DeclareEmployeeInformation(model, data);
             }
             return result;
+        }
+
+        /// <summary>
+        /// Declare Employee Information for return.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="data"></param>
+        private void DeclareEmployeeInformation(EmployeeViewModel model, Employee data)
+        {
+            model.Name = string.Format(ConstantValue.EMP_TEMPLATE, data.FirstName, data.LastName);
+            model.StartWorkingDay = data.StartWorkingDay;
+        }
+
+        /// <summary>
+        /// The Method Add ClaimsIdentity Properties.
+        /// </summary>
+        /// <param name="data">The employee information.</param>
+        private void ManageClaimsIdentity(Employee data, EmployeeViewModel model)
+        {
+            var userRoles = _unitOfWork.GetRepository<UserRole>().Get(x => x.Email == data.Email);
+            _identity = new ClaimsIdentity();
+            _identity.AddClaim(new Claim(ClaimTypes.Name, data.Email));
+            _identity.AddClaim(new Claim(ConstantValue.CLAMIS_NAME, string.Format(ConstantValue.EMP_TEMPLATE, data.FirstName, data.LastName)));
+            foreach (var userRole in userRoles)
+            {
+                var role = _unitOfWork.GetRepository<Role>().Get(x => x.RoleId == userRole.RoleId).FirstOrDefault();
+                string roleName = role.RoleName ?? "Unknow";
+                _identity.AddClaim(new Claim(ClaimTypes.Role, roleName));
+                model.Role += $"{roleName} ";
+            }
+        }
+
+        /// <summary>
+        /// The Verify Password.
+        /// </summary>
+        /// <param name="login">The login value.</param>
+        /// <returns></returns>
+        private bool ValidatePassword(LoginViewModel login)
+        {
+            var password = _unitOfWork.GetRepository<Password>().Get(x => x.Email == login.Username).FirstOrDefault();
+            var verifyPassword = new TimeSheet.Bll.Components.PasswordGenerator(password.Password1);
+            return verifyPassword.Verify(login.Password);
         }
 
         /// <summary>
@@ -68,21 +119,14 @@ namespace TimeSheet.Bll
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(ClaimTypes.Name, username));
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               expires: DateTime.Now.AddMinutes(30),
               signingCredentials: creds,
-              claims: identity.Claims);
+              claims: _identity.Claims);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        public IEnumerable<Data.Pocos.TimeSheet> TestConnection()
-        {
-            return _unitOfWork.GetRepository<TimeSheet.Data.Pocos.TimeSheet>().Get();
         }
 
         #endregion

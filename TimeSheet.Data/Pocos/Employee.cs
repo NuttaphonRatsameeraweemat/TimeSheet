@@ -5,13 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TimeSheet.Data.Pocos
 {
-    public partial class TimeSheet
+    public partial class Employee
     {
-        [Column("ID")]
-        public int Id { get; set; }
         [StringLength(255)]
         public string Email { get; set; }
+        [StringLength(255)]
+        public string FirstName { get; set; }
+        [StringLength(255)]
+        public string LastName { get; set; }
         [Column(TypeName = "date")]
-        public DateTime? DateTimeStamp { get; set; }
+        public DateTime? StartWorkingDay { get; set; }
     }
 }

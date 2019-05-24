@@ -41,13 +41,13 @@ namespace TimeSheet.API.Controllers
         public IActionResult Login([FromBody]LoginViewModel auth)
         {
             IActionResult response = Unauthorized();
-
-            if (_login.Authenticate(auth))
+            var model = new EmployeeViewModel();
+            if (_login.Authenticate(auth, model))
             {
-                var tokenString = _login.BuildToken(auth.Username);
+                model.Token = _login.BuildToken(auth.Username);
 
                 //Generate Cookies for authenticate.
-                HttpContext.Response.Cookies.Append("access_token", tokenString, new Microsoft.AspNetCore.Http.CookieOptions()
+                HttpContext.Response.Cookies.Append("access_token", model.Token, new Microsoft.AspNetCore.Http.CookieOptions()
                 {
                     Path = "/",
                     HttpOnly = true, // to prevent XSS
@@ -55,18 +55,10 @@ namespace TimeSheet.API.Controllers
                     Expires = System.DateTime.UtcNow.AddMinutes(5) // token life time
                 });
 
-                response = Ok(tokenString);
+                response = Ok(model);
             }
 
             return response;
-        }
-
-        [HttpGet]
-        [Route("TestConnection")]
-        [AllowAnonymous]
-        public IActionResult TestConnection()
-        {
-            return Ok(_login.TestConnection());
         }
 
         #endregion

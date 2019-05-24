@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using TimeSheet.Helper;
 
 namespace TimeSheet.API
 {
@@ -33,6 +34,7 @@ namespace TimeSheet.API
             services.AddMvc(opt =>
             {
                 opt.UseApiGlobalConfigRoutePrefix(new RouteAttribute("api"));
+                opt.Filters.Add(typeof(ValidateModelStateAttribute));
             });
             services.AddSwagger();
         }
@@ -41,13 +43,9 @@ namespace TimeSheet.API
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseAuthentication();
-
             app.ConfigureMiddleware();
-
             app.ConfigureSwagger();
-
             app.UseCors("CorsPolicy");
-
             app.UseMvc();
         }
     }

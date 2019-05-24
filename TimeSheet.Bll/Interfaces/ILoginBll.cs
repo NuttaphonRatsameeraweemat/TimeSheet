@@ -8,7 +8,6 @@ namespace TimeSheet.Bll.Interfaces
     public interface ILoginBll
     {
         string BuildToken(string aduser);
-        bool Authenticate(LoginViewModel login);
-        IEnumerable<TimeSheet.Data.Pocos.TimeSheet> TestConnection();
+        bool Authenticate(LoginViewModel login, EmployeeViewModel model);
     }
 }

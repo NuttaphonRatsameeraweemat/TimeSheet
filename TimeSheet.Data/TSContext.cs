@@ -16,33 +16,27 @@ namespace TimeSheet.Data
         {
         }
 
-        public virtual DbSet<TaskList> AppCompositeRole { get; set; }
-        public virtual DbSet<Pocos.TimeSheet> AppCompositeRoleItem { get; set; }
-        
+        public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<Password> Password { get; set; }
+        public virtual DbSet<TaskList> TaskList { get; set; }
+        public virtual DbSet<Pocos.TimeSheet> TimeSheet { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TaskList>(entity =>
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
+
+            modelBuilder.Entity<Employee>(entity =>
             {
-                entity.ToTable("TaskList", "public");
+                entity.HasKey(e => e.Email)
+                    .HasName("Employee_pkey");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.TimeSheetId).HasColumnName("TimeSheetID");
-
-                entity.Property(e => e.ProjectCode).HasMaxLength(20);
-
-                entity.Property(e => e.TypeCode).HasMaxLength(20);
-
+                entity.Property(e => e.Email).ValueGeneratedNever();
             });
 
-            modelBuilder.Entity<Pocos.TimeSheet>(entity =>
+            modelBuilder.Entity<Password>(entity =>
             {
-                entity.ToTable("TimeSheet", "public");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Email).HasMaxLength(255);
-
+                entity.HasKey(e => new { e.Email, e.Password1 })
+                    .HasName("Password_pkey");
             });
 
         }
