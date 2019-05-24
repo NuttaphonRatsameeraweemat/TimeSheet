@@ -76,7 +76,7 @@ namespace TimeSheet.Bll
         private void DeclareEmployeeInformation(EmployeeViewModel model, Employee data)
         {
             model.Name = string.Format(ConstantValue.EMP_TEMPLATE, data.FirstName, data.LastName);
-            model.StartWorkingDay = data.StartWorkingDay;
+            model.StartWorkingDay = data.StartWorkingDay.Value.ToString(ConstantValue.DATE_TIME_FORMAT);
         }
 
         /// <summary>

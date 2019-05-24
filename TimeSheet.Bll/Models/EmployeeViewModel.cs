@@ -8,7 +8,7 @@ namespace TimeSheet.Bll.Models
     {
         public string Name { get; set; }
         public string Role { get; set; }
-        public DateTime? StartWorkingDay { get; set; }
+        public string StartWorkingDay { get; set; }
         public string Token { get; set; }
     }
 }

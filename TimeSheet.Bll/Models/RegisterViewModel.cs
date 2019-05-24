@@ -33,7 +33,7 @@ namespace TimeSheet.Bll.Models
             set
             {
                 StartWorkingDay = value;
-                StartWorkingDayText = StartWorkingDay.Value.ToString("yyyy-MM-dd");
+                StartWorkingDayText = StartWorkingDay.Value.ToString(ConstantValue.DATE_TIME_FORMAT);
             }
         }
     }
