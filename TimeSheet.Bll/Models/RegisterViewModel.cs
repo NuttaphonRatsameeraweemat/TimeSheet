@@ -36,5 +36,10 @@ namespace TimeSheet.Bll.Models
                 StartWorkingDayText = StartWorkingDay.Value.ToString(ConstantValue.DATE_TIME_FORMAT);
             }
         }
+        
+        [RegularExpression(@"^[0-9]{1}$|^[0-9]{1}[0-9\s]*[0-9]+$", ErrorMessage = "Input Only Number")]
+        [StringLength(50, MinimumLength = 10, ErrorMessage = "Telephone number is incorrect format.")]
+        public string TelNo { get; set; }
+
     }
 }

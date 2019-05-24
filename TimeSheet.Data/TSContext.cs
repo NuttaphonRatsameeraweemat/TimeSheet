@@ -18,8 +18,10 @@ namespace TimeSheet.Data
 
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Password> Password { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<TaskList> TaskList { get; set; }
         public virtual DbSet<Pocos.TimeSheet> TimeSheet { get; set; }
+        public virtual DbSet<UserRole> UserRole { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +39,12 @@ namespace TimeSheet.Data
             {
                 entity.HasKey(e => new { e.Email, e.Password1 })
                     .HasName("Password_pkey");
+            });
+
+            modelBuilder.Entity<UserRole>(entity =>
+            {
+                entity.HasKey(e => new { e.Email, e.RoleId })
+                    .HasName("UserRole_pkey");
             });
 
         }

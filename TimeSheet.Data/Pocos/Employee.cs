@@ -15,5 +15,7 @@ namespace TimeSheet.Data.Pocos
         public string LastName { get; set; }
         [Column(TypeName = "date")]
         public DateTime? StartWorkingDay { get; set; }
+        [StringLength(50)]
+        public string TelNo { get; set; }
     }
 }

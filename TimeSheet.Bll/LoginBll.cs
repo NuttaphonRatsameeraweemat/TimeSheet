@@ -77,6 +77,8 @@ namespace TimeSheet.Bll
         {
             model.Name = string.Format(ConstantValue.EMP_TEMPLATE, data.FirstName, data.LastName);
             model.StartWorkingDay = data.StartWorkingDay.Value.ToString(ConstantValue.DATE_TIME_FORMAT);
+            model.Email = data.Email;
+            model.TelNo = data.TelNo;
         }
 
         /// <summary>
