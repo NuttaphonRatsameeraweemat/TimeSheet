@@ -79,7 +79,6 @@ namespace TimeSheet.Bll
             model.StartWorkingDay = data.StartWorkingDay.Value.ToString(ConstantValue.DATE_TIME_FORMAT);
             model.Email = data.Email;
             model.TelNo = data.TelNo;
-            model.TotalWorking = ((DateTime.Now.Year - data.StartWorkingDay.Value.Year) * 12) + DateTime.Now.Month - data.StartWorkingDay.Value.Month;
         }
 
         /// <summary>

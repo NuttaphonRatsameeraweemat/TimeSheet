@@ -44,10 +44,14 @@ namespace TimeSheet.API.Controllers
             var model = new EmployeeViewModel();
             if (_login.Authenticate(auth, model))
             {
-                model.Token = _login.BuildToken(auth.Username);
-
+                string token = _login.BuildToken(auth.Username);
+                var responseMessage = new
+                {
+                    Employee = model,
+                    Token = token
+                };
                 //Generate Cookies for authenticate.
-                HttpContext.Response.Cookies.Append("access_token", model.Token, new Microsoft.AspNetCore.Http.CookieOptions()
+                HttpContext.Response.Cookies.Append("access_token", token, new Microsoft.AspNetCore.Http.CookieOptions()
                 {
                     Path = "/",
                     HttpOnly = true, // to prevent XSS
@@ -55,7 +59,7 @@ namespace TimeSheet.API.Controllers
                     Expires = System.DateTime.UtcNow.AddMinutes(600) // token life time
                 });
 
-                response = Ok(model);
+                response = Ok(responseMessage);
             }
 
             return response;

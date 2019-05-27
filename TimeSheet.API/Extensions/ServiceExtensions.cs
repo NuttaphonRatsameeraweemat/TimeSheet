@@ -21,6 +21,7 @@ using TimeSheet.Bll.Interfaces;
 using TimeSheet.Bll;
 using TimeSheet.Data;
 using TimeSheet.Data.Repository.Interfaces;
+using TimeSheet.Bll.Models;
 
 namespace TimeSheet.API.Extensions
 {
@@ -51,6 +52,7 @@ namespace TimeSheet.API.Extensions
             services.AddScoped<ITimeSheetBll, TimeSheetBll>();
             services.AddScoped<IValueHelpBll, ValueHelpBll>();
             services.AddScoped<IRegisterBll, RegisterBll>();
+            services.AddScoped<IEmployeeBll, EmployeeBll>();
             services.AddScoped<IManageToken, ManageToken>();
         }
 
@@ -179,10 +181,10 @@ namespace TimeSheet.API.Extensions
                      OnAuthenticationFailed = context =>
                      {
                          context.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
-                         var model = new
+                         var model = new ResultViewModel
                          {
-                             context.Response.StatusCode,
-                             Message = "Unauthorized."
+                             IsError = true,
+                             Message = $"{context.Response.StatusCode}"
                          };
                          string json = JsonConvert.SerializeObject(model, new JsonSerializerSettings
                          {
@@ -219,10 +221,10 @@ namespace TimeSheet.API.Extensions
                         options.SlidingExpiration = true;
                         options.Events.OnRedirectToLogin = context =>
                         {
-                            var model = new
+                            var model = new ResultViewModel
                             {
-                                ErrorFlag = true,
-                                Message = "Unauthorized."
+                                IsError = true,
+                                Message = $"{context.Response.StatusCode}"
                             };
                             string json = JsonConvert.SerializeObject(model, new JsonSerializerSettings
                             {
