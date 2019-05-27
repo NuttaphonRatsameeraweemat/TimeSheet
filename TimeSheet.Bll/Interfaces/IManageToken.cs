@@ -6,6 +6,6 @@ namespace TimeSheet.Bll.Interfaces
 {
     public interface IManageToken
     {
-        string EmpNo { get; }
+        string Email { get; }
     }
 }

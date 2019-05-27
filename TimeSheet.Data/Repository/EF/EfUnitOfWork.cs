@@ -3,6 +3,7 @@ using TimeSheet.Data.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TimeSheet.Data.Repository.EF
 {
@@ -87,6 +88,27 @@ namespace TimeSheet.Data.Repository.EF
             try
             {
                 return _context.SaveChanges();
+            }
+            finally
+            {
+            }
+        }
+
+        /// <summary>
+        /// Commit all changes by using repository to database.
+        /// </summary>
+        /// <returns>The number of objects written to the underlying database.</returns>
+        /// <exception cref="System.ObjectDisposedException">When object has been disposed.</exception>
+        public async Task<int> CompleteAsync()
+        {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(this.GetType().FullName);
+            }
+
+            try
+            {
+                return await _context.SaveChangesAsync();
             }
             finally
             {

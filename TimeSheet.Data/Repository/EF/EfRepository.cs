@@ -172,6 +172,15 @@ namespace TimeSheet.Data.Repository.EF
             _dbSet.Update(entity);
         }
 
+        /// <summary>
+        /// summary the multiple data as collection of poco entities from database.
+        /// </summary>
+        /// <param name="entity">The entity to update.</param>
+        public void UpdateRange(IEnumerable<TEntity> entity)
+        {
+            _dbSet.UpdateRange(entity);
+        }
+
         #endregion
 
     }

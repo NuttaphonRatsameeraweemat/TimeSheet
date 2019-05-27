@@ -40,15 +40,30 @@ namespace TimeSheet.API.Controllers
         #region Methods
 
         [HttpGet]
-        public IActionResult Get(int month)
+        public IActionResult Get(string date)
         {
-            return Ok(_timeSheet.Get(_token.EmpNo, month));
+            return Ok(_timeSheet.Get(_token.Email, date));
         }
 
         [HttpPost]
-        public IActionResult Submit(TimeSheetViewModel fromData)
+        [Route("Save")]
+        public IActionResult Save(TimeSheetViewModel formData)
         {
-            return Ok();
+            return Ok(_timeSheet.Save(formData, _token.Email));
+        }
+
+        [HttpPost]
+        [Route("Edit")]
+        public IActionResult Edit(TimeSheetViewModel formData)
+        {
+            return Ok(_timeSheet.Update(formData, _token.Email));
+        }
+
+        [HttpPost]
+        [Route("Delete")]
+        public IActionResult Delete(TimeSheetViewModel formData)
+        {
+            return Ok(_timeSheet.Delete(formData));
         }
 
         #endregion

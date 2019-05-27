@@ -33,7 +33,7 @@ namespace TimeSheet.Bll
         /// <summary>
         /// Get Currrent Aduser.
         /// </summary>
-        public string EmpNo => _httpContext.User.Identity.Name;
+        public string Email => _httpContext.User.Identity.Name;
 
         #endregion
 

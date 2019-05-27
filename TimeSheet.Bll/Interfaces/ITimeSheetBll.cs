@@ -7,6 +7,9 @@ namespace TimeSheet.Bll.Interfaces
 {
     public interface ITimeSheetBll
     {
-        TimeSheetViewModel Get(string empNo, int month);
+        TimeSheetViewModel Get(string email, string date);
+        ResultViewModel Save(TimeSheetViewModel formData, string email);
+        ResultViewModel Update(TimeSheetViewModel formData, string email);
+        ResultViewModel Delete(TimeSheetViewModel formData);
     }
 }

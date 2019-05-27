@@ -24,6 +24,7 @@ namespace TimeSheet.Data.Repository.Interfaces
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
         void Update(TEntity entity);
+        void UpdateRange(IEnumerable<TEntity> entity);
         void Remove(int id);
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
