@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace TimeSheet.Bll.Models
@@ -10,8 +11,7 @@ namespace TimeSheet.Bll.Models
         {
             TimeSheet = new List<TimeSheetModel>();
         }
-
-        public bool IsSave { get; set; }
+        
         public List<TimeSheetModel> TimeSheet { get; set; }
     }
 
@@ -23,6 +23,7 @@ namespace TimeSheet.Bll.Models
         }
 
         public int TimeSheetId { get; set; }
+        [Required]
         public string DateTimeStamp { get; set; }
         public List<TaskListModel> TaskList { get; set; }
     }
@@ -31,8 +32,11 @@ namespace TimeSheet.Bll.Models
     {
         public int TaskId { get; set; }
         public int TimeSheetId { get; set; }
+        [Required]
         public string ProjectCode { get; set; }
+        [Required]
         public string TypeCode { get; set; }
+        [Required]
         public int WorkingHours { get; set; }
         public string Description { get; set; }
     }
