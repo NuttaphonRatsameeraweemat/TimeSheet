@@ -221,6 +221,7 @@ namespace TimeSheet.API.Extensions
                         options.SlidingExpiration = true;
                         options.Events.OnRedirectToLogin = context =>
                         {
+                            context.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                             var model = new ResultViewModel
                             {
                                 IsError = true,
@@ -230,7 +231,6 @@ namespace TimeSheet.API.Extensions
                             {
                                 ContractResolver = new CamelCasePropertyNamesContractResolver()
                             });
-                            context.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
                             context.Response.OnStarting(async () =>
                             {
                                 context.Response.ContentType = "application/json";
