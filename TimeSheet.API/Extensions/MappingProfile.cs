@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using TimeSheet.Bll.Models;
+using TimeSheet.Data.Pocos;
 
 namespace TimeSheet.API.Extensions
 {
@@ -11,7 +9,10 @@ namespace TimeSheet.API.Extensions
         public MappingProfile()
         {
             // Add as many of these lines as you need to map your objects
-
+            CreateMap<TimeSheet.Data.Pocos.TimeSheet, TimeSheetViewModel>();
+            CreateMap<TimeSheetViewModel, TimeSheet.Data.Pocos.TimeSheet>();
+            CreateMap<TimeSheet.Data.Pocos.TaskList, TaskListModel>();
+            CreateMap<TaskListModel, TimeSheet.Data.Pocos.TaskList>();
         }
     }
 }
