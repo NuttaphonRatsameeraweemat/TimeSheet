@@ -11,8 +11,10 @@ namespace TimeSheet.API.Extensions
             // Add as many of these lines as you need to map your objects
             CreateMap<TimeSheet.Data.Pocos.TimeSheet, TimeSheetViewModel>();
             CreateMap<TimeSheetViewModel, TimeSheet.Data.Pocos.TimeSheet>();
-            CreateMap<TimeSheet.Data.Pocos.TaskList, TaskListModel>();
-            CreateMap<TaskListModel, TimeSheet.Data.Pocos.TaskList>();
+            CreateMap<TaskList, TaskListModel>();
+            CreateMap<TaskListModel, TaskList>();
+            CreateMap<ValueHelp, ValueHelpViewModel>();
+            CreateMap<ValueHelpViewModel, ValueHelp>();
         }
     }
 }

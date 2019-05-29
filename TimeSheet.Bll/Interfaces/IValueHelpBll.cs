@@ -7,6 +7,11 @@ namespace TimeSheet.Bll.Interfaces
 {
     public interface IValueHelpBll
     {
-        List<ValueHelpViewModel> Get(string type);
+        /// <summary>
+        /// Get ValueHelp List by type.
+        /// </summary>
+        /// <param name="type">The type of value.</param>
+        /// <returns></returns>
+        IEnumerable<ValueHelpViewModel> Get(string type);
     }
 }

@@ -7,9 +7,41 @@ namespace TimeSheet.Bll.Interfaces
 {
     public interface ITimeSheetBll
     {
+
+        /// <summary>
+        /// Get TimeSheet information by employee email.
+        /// </summary>
+        /// <param name="email">The employee email.</param>
+        /// <param name="date">The target month.</param>
+        /// <returns></returns>
         TimeSheetViewModel Get(string email, string date);
+        /// <summary>
+        /// Get Summary TimeSheet in target year.
+        /// </summary>
+        /// <param name="email">The employee email.</param>
+        /// <param name="date">The target year,</param>
+        /// <returns></returns>
+        TimeSheetViewModel GetSummary(string email, string date);
+        /// <summary>
+        /// Insert new timesheet and tasklist information to database.
+        /// </summary>
+        /// <param name="formData">The information of timesheet and tasklist.</param>
+        /// <param name="email">The owner timesheet and tasklist.</param>
+        /// <returns></returns>
         ResultViewModel Save(TimeSheetViewModel formData, string email);
+        /// <summary>
+        /// Update TimeSheet and tasklist information to database.
+        /// </summary>
+        /// <param name="timeSheetList">The information of timesheet and tasklist.</param>
+        /// <param name="email">The owner timesheet and tasklist.</param>
+        /// <returns></returns>
         ResultViewModel Update(TimeSheetViewModel formData, string email);
+        /// <summary>
+        /// Delete TimeSheet and Tasklist.
+        /// </summary>
+        /// <param name="formData">The TimeSheet and Tasklist information.</param>
+        /// <returns></returns>
         ResultViewModel Delete(TimeSheetViewModel formData);
+
     }
 }

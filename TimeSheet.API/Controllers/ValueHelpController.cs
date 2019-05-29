@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TimeSheet.Bll.Components;
 using TimeSheet.Bll.Interfaces;
 using TimeSheet.Bll.Models;
 
@@ -40,24 +41,14 @@ namespace TimeSheet.API.Controllers
         [Route("GetTypeProject")]
         public IActionResult GetTypeProject()
         {
-            return Ok(new List<ValueHelpViewModel>
-            {
-                new ValueHelpViewModel{ ValueKey = "T001", ValueText = "Support"},
-                new ValueHelpViewModel{ ValueKey = "T002", ValueText = "Proof of Concept"},
-                new ValueHelpViewModel{ ValueKey = "T003", ValueText = "Development"},
-            });
+            return Ok(_valueHelp.Get(ConstantValue.VALUE_PROJECT_TYPE));
         }
 
         [HttpGet]
-        [Route("GetProject")]
-        public IActionResult GetProject()
+        [Route("GetProjectStatus")]
+        public IActionResult GetProjectStatus()
         {
-            return Ok(new List<ValueHelpViewModel>
-            {
-                new ValueHelpViewModel{ ValueKey = "P001", ValueText = "Digital Signature"},
-                new ValueHelpViewModel{ ValueKey = "P002", ValueText = "SmartForm"},
-                new ValueHelpViewModel{ ValueKey = "P003", ValueText = "TimeSheet"},
-            });
+            return Ok(_valueHelp.Get(ConstantValue.VALUE_PROJECT_STATUS));
         }
 
         #endregion

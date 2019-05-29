@@ -18,10 +18,12 @@ namespace TimeSheet.Data
 
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Password> Password { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<TaskList> TaskList { get; set; }
         public virtual DbSet<Pocos.TimeSheet> TimeSheet { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
+        public virtual DbSet<ValueHelp> ValueHelp { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,6 +49,11 @@ namespace TimeSheet.Data
                     .HasName("UserRole_pkey");
             });
 
+            modelBuilder.Entity<ValueHelp>(entity =>
+            {
+                entity.HasKey(e => new { e.ValueType, e.ValueKey })
+                    .HasName("ValueHelp_pkey");
+            });
         }
     }
 }

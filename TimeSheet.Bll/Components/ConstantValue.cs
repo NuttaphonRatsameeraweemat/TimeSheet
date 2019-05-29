@@ -13,5 +13,11 @@ namespace TimeSheet.Bll.Components
         //Claims Type
         public const string CLAMIS_NAME = "EmpName";
         public const string CLAMIS_ROLE = "EmpRole";
+        //ValueHelp Type
+        public const string VALUE_PROJECT_TYPE = "TYPE_PROJECT";
+        public const string VALUE_PROJECT_STATUS = "PROJECT_STATUS";
+        //Project Status
+        public const string PROJECT_STATUS_ACTIVE = "ACTIVE";
+        public const string PROJECT_STATUS_COMPLETE = "COMPLETE";
     }
 }
