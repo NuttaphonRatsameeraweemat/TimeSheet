@@ -43,6 +43,14 @@ namespace TimeSheet.Data
                     .HasName("Password_pkey");
             });
 
+            modelBuilder.Entity<Project>(entity =>
+            {
+                entity.HasKey(e => e.ProjectCode)
+                    .HasName("Project_pkey");
+
+                entity.Property(e => e.ProjectCode).ValueGeneratedNever();
+            });
+
             modelBuilder.Entity<UserRole>(entity =>
             {
                 entity.HasKey(e => new { e.Email, e.RoleId })

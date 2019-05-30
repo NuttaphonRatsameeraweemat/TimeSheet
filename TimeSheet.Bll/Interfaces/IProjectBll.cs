@@ -30,7 +30,7 @@ namespace TimeSheet.Bll.Interfaces
         /// </summary>
         /// <param name="id">The Identity project.</param>
         /// <returns></returns>
-        ProjectViewModel Get(int id);
+        ProjectViewModel Get(string projectCode);
         /// <summary>
         /// Get Project List.
         /// </summary>
@@ -40,6 +40,6 @@ namespace TimeSheet.Bll.Interfaces
         /// Get Project List Status Active only.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<ProjectViewModel> GetListActive();
+        IEnumerable<ValueHelpViewModel> GetListActive();
     }
 }

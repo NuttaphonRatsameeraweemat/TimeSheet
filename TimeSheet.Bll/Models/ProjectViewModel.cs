@@ -7,7 +7,6 @@ namespace TimeSheet.Bll.Models
 {
     public class ProjectViewModel
     {
-        public int Id { get; set; }
         [Required]
         public string ProjectCode { get; set; }
         [Required]

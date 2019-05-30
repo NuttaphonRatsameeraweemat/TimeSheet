@@ -41,9 +41,9 @@ namespace TimeSheet.API.Controllers
         #region Methods
 
         [HttpGet]
-        public IActionResult Get(int id)
+        public IActionResult Get(string projectCode)
         {
-            return Ok(_project.Get(id));
+            return Ok(_project.Get(projectCode));
         }
 
         [HttpGet]

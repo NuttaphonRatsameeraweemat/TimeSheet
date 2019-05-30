@@ -87,10 +87,10 @@ namespace TimeSheet.Bll
         /// </summary>
         /// <param name="id">The Identity project.</param>
         /// <returns></returns>
-        public ProjectViewModel Get(int id)
+        public ProjectViewModel Get(string projectCode)
         {
             return _mapper.Map<Project, ProjectViewModel>(
-                _unitOfWork.GetRepository<Project>().Get(x => x.Id == id).FirstOrDefault());
+                _unitOfWork.GetRepository<Project>().Get(x => x.ProjectCode == projectCode).FirstOrDefault());
         }
 
         /// <summary>
@@ -107,10 +107,15 @@ namespace TimeSheet.Bll
         /// Get Project List Status Active only.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ProjectViewModel> GetListActive()
+        public IEnumerable<ValueHelpViewModel> GetListActive()
         {
-            return _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectViewModel>>(
-                _unitOfWork.GetRepository<Project>().Get(x=>x.Status == ConstantValue.PROJECT_STATUS_ACTIVE));
+            var result = new List<ValueHelpViewModel>();
+            var data = _unitOfWork.GetRepository<Project>().Get(x => x.Status == ConstantValue.PROJECT_STATUS_ACTIVE);
+            foreach (var item in data)
+            {
+                result.Add(new ValueHelpViewModel { ValueKey = item.ProjectCode, ValueText = item.ProjectName });
+            }
+            return result;
         }
 
         #endregion

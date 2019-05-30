@@ -7,8 +7,6 @@ namespace TimeSheet.Data.Pocos
 {
     public partial class Project
     {
-        [Column("ID")]
-        public int Id { get; set; }
         [StringLength(100)]
         public string ProjectCode { get; set; }
         [StringLength(100)]
