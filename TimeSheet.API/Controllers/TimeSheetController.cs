@@ -16,11 +16,11 @@ namespace TimeSheet.API.Controllers
         /// <summary>
         /// The Login manager provides Login functionality.
         /// </summary>
-        private ITimeSheetBll _timeSheet;
+        private readonly ITimeSheetBll _timeSheet;
         /// <summary>
         /// The ClaimsIdentity in token management.
         /// </summary>
-        private IManageToken _token;
+        private readonly IManageToken _token;
 
         #endregion
 

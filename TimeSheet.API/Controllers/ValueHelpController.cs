@@ -18,7 +18,7 @@ namespace TimeSheet.API.Controllers
         /// <summary>
         /// The Login manager provides Login functionality.
         /// </summary>
-        private IValueHelpBll _valueHelp;
+        private readonly IValueHelpBll _valueHelp;
 
         #endregion
 

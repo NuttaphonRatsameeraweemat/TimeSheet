@@ -21,7 +21,7 @@ namespace TimeSheet.API.Controllers
         /// <summary>
         /// The Project manager provides project functionality.
         /// </summary>
-        private IProjectBll _project;
+        private readonly IProjectBll _project;
 
         #endregion
 

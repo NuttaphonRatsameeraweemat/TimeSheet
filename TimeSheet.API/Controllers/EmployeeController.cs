@@ -20,7 +20,7 @@ namespace TimeSheet.API.Controllers
         /// <summary>
         /// The Employee manager provides Login functionality.
         /// </summary>
-        private IEmployeeBll _employee;
+        private readonly IEmployeeBll _employee;
 
         #endregion
 

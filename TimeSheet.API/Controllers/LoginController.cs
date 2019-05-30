@@ -16,7 +16,7 @@ namespace TimeSheet.API.Controllers
         /// <summary>
         /// The Login manager provides Login functionality.
         /// </summary>
-        private ILoginBll _login;
+        private readonly ILoginBll _login;
 
         #endregion
 

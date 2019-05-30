@@ -21,7 +21,7 @@ namespace TimeSheet.API.Controllers
         /// <summary>
         /// The Role manager provides role functionality.
         /// </summary>
-        private IRoleBll _role;
+        private readonly IRoleBll _role;
 
         #endregion
 

@@ -20,7 +20,7 @@ namespace TimeSheet.API.Controllers
         /// <summary>
         /// The Register manager provides Register functionality.
         /// </summary>
-        private IRegisterBll _register;
+        private readonly IRegisterBll _register;
 
         #endregion
 
