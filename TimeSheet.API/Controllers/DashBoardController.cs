@@ -45,7 +45,8 @@ namespace TimeSheet.API.Controllers
         #region Methods
 
         [HttpGet]
-        public IActionResult Get(string email)
+        [Route("GetProjectTypeStat")]
+        public IActionResult GetProjectTypeStat(string email)
         {
             if (string.IsNullOrEmpty(email))
             {

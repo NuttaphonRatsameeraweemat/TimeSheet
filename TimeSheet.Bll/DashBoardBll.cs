@@ -19,7 +19,9 @@ namespace TimeSheet.Bll
         /// The utilities unit of work for manipulating utilities data in database.
         /// </summary>
         private readonly IUnitOfWork _unitOfWork;
-
+        /// <summary>
+        /// The Login manager provides Login functionality.
+        /// </summary>
         private readonly IValueHelpBll _valueHelp;
 
         #endregion
@@ -57,11 +59,15 @@ namespace TimeSheet.Bll
 
             foreach (var item in projectList)
             {
-                result.Add(new DashBoardViewModel.ProjectTypeWorkingStat
+                var tasks = taskList.Where(x => x.ProjectCode == item.ProjectCode).ToList();
+                if (tasks.Count > 0)
                 {
-                    ProjectName = item.ProjectName,
-                    TypeStat = this.GetStatProjectType(projectTypeList, taskList.Where(x => x.ProjectCode == item.ProjectCode))
-                });
+                    result.Add(new DashBoardViewModel.ProjectTypeWorkingStat
+                    {
+                        ProjectName = item.ProjectName,
+                        TypeStat = this.GetStatProjectType(projectTypeList, tasks)
+                    });
+                }
             }
 
             return result;
