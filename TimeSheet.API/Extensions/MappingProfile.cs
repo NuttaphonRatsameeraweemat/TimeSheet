@@ -15,6 +15,10 @@ namespace TimeSheet.API.Extensions
             CreateMap<TaskListModel, TaskList>();
             CreateMap<ValueHelp, ValueHelpViewModel>();
             CreateMap<ValueHelpViewModel, ValueHelp>();
+            CreateMap<Role, RoleViewModel>();
+            CreateMap<RoleViewModel, Role>();
+            CreateMap<Project, ProjectViewModel>();
+            CreateMap<ProjectViewModel, Project>();
         }
     }
 }
