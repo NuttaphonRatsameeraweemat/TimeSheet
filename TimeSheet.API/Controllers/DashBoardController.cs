@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheet.Bll.Interfaces;
+using TimeSheet.Bll.Models;
 
 namespace TimeSheet.API.Controllers
 {
@@ -53,6 +54,21 @@ namespace TimeSheet.API.Controllers
                 email = _token.Email;
             }
             return Ok(_dashboard.GetProjectTypeStat(email));
+        }
+
+        [HttpGet]
+        [Route("GetProjectStat")]
+        public IActionResult GetProjectStat(string email, string year)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                email = _token.Email;
+            }
+            if (string.IsNullOrEmpty(year))
+            {
+                return BadRequest(new ResultViewModel { IsError = true, Message = "Year can't be empty." });
+            }
+            return Ok(_dashboard.GetProjectStat(email, year));
         }
 
         #endregion

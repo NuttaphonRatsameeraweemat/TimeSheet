@@ -14,5 +14,12 @@ namespace TimeSheet.Bll.Interfaces
         /// <param name="email">The employee email.</param>
         /// <returns></returns>
         List<DashBoardViewModel.ProjectTypeWorkingStat> GetProjectTypeStat(string email);
+        /// <summary>
+        /// Get Summary project stat overview.
+        /// </summary>
+        /// <param name="email">The employee email.</param>
+        /// <param name="year">The year target.</param>
+        /// <returns></returns>
+        List<DashBoardViewModel.ProjectTypeWorkingStat> GetProjectStat(string email, string year);
     }
 }
