@@ -57,6 +57,7 @@ namespace TimeSheet.Bll
                 {
                     this.SaveEmployee(formData);
                     this.SavePassword(formData);
+                    this.SaveUserRole(formData);
                     scope.Complete();
                 }
             }
@@ -83,6 +84,17 @@ namespace TimeSheet.Bll
             var password = new TimeSheet.Bll.Components.PasswordGenerator(formData.Password);
             var data = new Password { Email = formData.Email, Password1 = password.GetHash() };
             _unitOfWork.GetRepository<Password>().Add(data);
+            _unitOfWork.Complete();
+        }
+
+        /// <summary>
+        /// The Method insert user role employee.
+        /// </summary>
+        /// <param name="formData"></param>
+        private void SaveUserRole(RegisterViewModel formData)
+        {
+            var data = new UserRole { Email = formData.Email, RoleId = formData.RoleId };
+            _unitOfWork.GetRepository<UserRole>().Add(data);
             _unitOfWork.Complete();
         }
 

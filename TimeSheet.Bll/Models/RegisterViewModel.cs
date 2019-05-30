@@ -41,5 +41,8 @@ namespace TimeSheet.Bll.Models
         [StringLength(50, MinimumLength = 10, ErrorMessage = "Telephone number is incorrect format.")]
         public string TelNo { get; set; }
 
+        [Required]
+        public int RoleId { get; set; }
+
     }
 }
