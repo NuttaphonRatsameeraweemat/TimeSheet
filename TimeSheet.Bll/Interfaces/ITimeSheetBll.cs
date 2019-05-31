@@ -16,13 +16,6 @@ namespace TimeSheet.Bll.Interfaces
         /// <returns></returns>
         TimeSheetViewModel Get(string email, string date);
         /// <summary>
-        /// Get Summary TimeSheet in target year.
-        /// </summary>
-        /// <param name="email">The employee email.</param>
-        /// <param name="date">The target year,</param>
-        /// <returns></returns>
-        TimeSheetViewModel GetSummary(string email, string date);
-        /// <summary>
         /// Insert new timesheet and tasklist information to database.
         /// </summary>
         /// <param name="formData">The information of timesheet and tasklist.</param>

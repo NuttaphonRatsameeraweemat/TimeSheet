@@ -57,17 +57,6 @@ namespace TimeSheet.Bll
         }
 
         /// <summary>
-        /// Get Summary TimeSheet in target year.
-        /// </summary>
-        /// <param name="email">The employee email.</param>
-        /// <param name="date">The target year,</param>
-        /// <returns></returns>
-        public TimeSheetViewModel GetSummary(string email, string date)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Get TimeSheet Stamp.
         /// </summary>
         /// <param name="email">The employee email.</param>

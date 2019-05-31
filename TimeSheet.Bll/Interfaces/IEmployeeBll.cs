@@ -7,6 +7,10 @@ namespace TimeSheet.Bll.Interfaces
 {
     public interface IEmployeeBll
     {
+        /// <summary>
+        /// Get All Employye Information.
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<EmployeeViewModel> GetAll();
     }
 }

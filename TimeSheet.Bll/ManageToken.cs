@@ -18,7 +18,7 @@ namespace TimeSheet.Bll
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AttachmentBll" /> class.
+        /// Initializes a new instance of the <see cref="ManageToken" /> class.
         /// </summary>
         /// <param name="httpContextAccessor">The httpcontext value.</param>
         public ManageToken(IHttpContextAccessor httpContextAccessor)
@@ -31,7 +31,7 @@ namespace TimeSheet.Bll
         #region [Methods]
 
         /// <summary>
-        /// Get Currrent Aduser.
+        /// Get Currrent Identity Employee Email.
         /// </summary>
         public string Email => _httpContext.User.Identity.Name;
 

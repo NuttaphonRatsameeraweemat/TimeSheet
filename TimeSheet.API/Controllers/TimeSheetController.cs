@@ -46,13 +46,6 @@ namespace TimeSheet.API.Controllers
             return Ok(_timeSheet.Get(_token.Email, date));
         }
 
-        [HttpGet]
-        [Route("GetSummary")]
-        public IActionResult GetSummary()
-        {
-            return Ok(_timeSheet.GetSummary(_token.Email, ""));
-        }
-
         [HttpPost]
         [Route("Save")]
         public IActionResult Save(TimeSheetViewModel formData)
