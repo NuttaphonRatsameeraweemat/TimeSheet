@@ -102,7 +102,7 @@ namespace TimeSheet.Bll
         /// <param name="timeSheetId">The timesheet id.</param>
         /// <returns></returns>
         private IEnumerable<TaskListModel> GetTaskList(int timeSheetId)
-        {
+        { 
             return _mapper.Map<IEnumerable<TimeSheet.Data.Pocos.TaskList>, IEnumerable<TaskListModel>>(
                 _unitOfWork.GetRepository<TimeSheet.Data.Pocos.TaskList>().Get(x => x.TimeSheetId == timeSheetId));
         }
@@ -250,14 +250,14 @@ namespace TimeSheet.Bll
         {
             var data = _unitOfWork.GetRepository<Data.Pocos.TaskList>().Get(x => x.TimeSheetId == timeSheetId).ToList();
 
-            var taskAdd = taskList.Where(x => !data.Any(y => y.Id == x.TaskId)).ToList();
-            var taskDelete = data.Where(x => !taskList.Any(y => y.TaskId == x.Id)).ToList();
-            data = data.Where(x => taskList.Any(y => y.TaskId == x.Id)).ToList();
+            var taskAdd = taskList.Where(x => !data.Any(y => y.Id == x.Id)).ToList();
+            var taskDelete = data.Where(x => !taskList.Any(y => y.Id == x.Id)).ToList();
+            data = data.Where(x => taskList.Any(y => y.Id == x.Id)).ToList();
 
             var taskUpdate = new List<Data.Pocos.TaskList>();
             foreach (var item in data)
             {
-                var task = taskList.FirstOrDefault(x => x.TaskId == item.Id);
+                var task = taskList.FirstOrDefault(x => x.Id == item.Id);
                 if (task != null)
                 {
                     item.ProjectCode = task.ProjectCode;

@@ -30,7 +30,7 @@ namespace TimeSheet.Bll.Models
 
     public class TaskListModel
     {
-        public int TaskId { get; set; }
+        public int Id { get; set; }
         public int TimeSheetId { get; set; }
         [Required]
         public string ProjectCode { get; set; }
