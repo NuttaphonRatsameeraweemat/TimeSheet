@@ -5,6 +5,7 @@ using Newtonsoft.Json.Serialization;
 using TimeSheet.Helper.Interfaces;
 using System;
 using System.Threading.Tasks;
+using TimeSheet.Bll.Models;
 
 namespace TimeSheet.API
 {
@@ -92,7 +93,7 @@ namespace TimeSheet.API
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
 
-            var model = new { httpContext.Response.StatusCode, Message = "Internal Server Error." };
+            var model = new ResultViewModel { IsError = true , Message = $"{(int)httpContext.Response.StatusCode}" };
 
             string json = JsonConvert.SerializeObject(model, new JsonSerializerSettings
             {
