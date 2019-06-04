@@ -165,6 +165,9 @@ namespace TimeSheet.API.Extensions
             services.AddScoped<AppSchema>();
             services.AddScoped<AppQuery>();
             services.AddScoped<EmployeeType>();
+            services.AddScoped<TimeSheetType>();
+            services.AddScoped<TimeSheetModelType>();
+            services.AddScoped<TaskListModelType>();
 
             services.AddGraphQL(o => { o.ExposeExceptions = false; })
                 .AddGraphTypes(ServiceLifetime.Scoped);
