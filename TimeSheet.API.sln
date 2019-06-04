@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSheet.API", "TimeSheet.API\TimeSheet.API.csproj", "{15BBD53F-1CD4-4D27-9658-DD590FD43D90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeSheet.API", "TimeSheet.API\TimeSheet.API.csproj", "{15BBD53F-1CD4-4D27-9658-DD590FD43D90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSheet.Bll", "TimeSheet.Bll\TimeSheet.Bll.csproj", "{8513FA06-A04E-4557-9519-A172A682E141}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeSheet.Bll", "TimeSheet.Bll\TimeSheet.Bll.csproj", "{8513FA06-A04E-4557-9519-A172A682E141}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSheet.Data", "TimeSheet.Data\TimeSheet.Data.csproj", "{67A14E6D-7ACB-4278-945A-ADFD67F67804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeSheet.Data", "TimeSheet.Data\TimeSheet.Data.csproj", "{67A14E6D-7ACB-4278-945A-ADFD67F67804}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSheet.Helper", "TimeSheet.Helper\TimeSheet.Helper.csproj", "{D098C22D-E3FC-4CF8-A536-7087B26FEBFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeSheet.Helper", "TimeSheet.Helper\TimeSheet.Helper.csproj", "{D098C22D-E3FC-4CF8-A536-7087B26FEBFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeSheet.GraphQL", "TimeSheet.GraphQL\TimeSheet.GraphQL.csproj", "{4D24F71C-831A-434C-90D4-57C8B253DC3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D098C22D-E3FC-4CF8-A536-7087B26FEBFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D098C22D-E3FC-4CF8-A536-7087B26FEBFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D098C22D-E3FC-4CF8-A536-7087B26FEBFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D24F71C-831A-434C-90D4-57C8B253DC3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D24F71C-831A-434C-90D4-57C8B253DC3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D24F71C-831A-434C-90D4-57C8B253DC3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D24F71C-831A-434C-90D4-57C8B253DC3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

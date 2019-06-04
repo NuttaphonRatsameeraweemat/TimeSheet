@@ -36,6 +36,7 @@ namespace TimeSheet.API
                 opt.UseApiGlobalConfigRoutePrefix(new RouteAttribute("api"));
                 opt.Filters.Add(typeof(ValidateModelStateAttribute));
             });
+            services.ConfigureGraphQL();
             services.AddSwagger();
         }
 
@@ -46,6 +47,7 @@ namespace TimeSheet.API
             app.ConfigureMiddleware();
             app.ConfigureSwagger();
             app.UseCors("CorsPolicy");
+            app.UseGraphQL();
             app.UseMvc();
         }
     }

@@ -22,6 +22,10 @@ using TimeSheet.Bll;
 using TimeSheet.Data;
 using TimeSheet.Data.Repository.Interfaces;
 using TimeSheet.Bll.Models;
+using GraphQL;
+using TimeSheet.GraphQL;
+using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
 
 namespace TimeSheet.API.Extensions
 {
@@ -88,7 +92,7 @@ namespace TimeSheet.API.Extensions
         }
 
         /// <summary>
-        /// Add Middleware when request bein and end.
+        /// Add Middleware when request begin and end.
         /// </summary>
         /// <param name="app"></param>
         public static void ConfigureMiddleware(this IApplicationBuilder app)
@@ -113,7 +117,7 @@ namespace TimeSheet.API.Extensions
         }
 
         /// <summary>
-        /// Add Swagger.
+        /// Configuration Swaager Doc and Authentication type.
         /// </summary>
         /// <param name="services">The service collection.</param>
         public static void AddSwagger(this IServiceCollection services)
@@ -122,7 +126,6 @@ namespace TimeSheet.API.Extensions
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
 
-                // Swagger 2.+ support
                 var security = new Dictionary<string, IEnumerable<string>>
                 {
                     {"Bearer", new string[] { }},
@@ -136,21 +139,16 @@ namespace TimeSheet.API.Extensions
                     Type = "apiKey"
                 });
                 c.AddSecurityRequirement(security);
-
             });
         }
 
         /// <summary>
-        /// Add Swagger.
+        /// Setup Application Builder using Swagger and Swagger Ui.
         /// </summary>
         /// <param name="services">The service collection.</param>
         public static void ConfigureSwagger(this IApplicationBuilder app)
         {
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
@@ -158,10 +156,35 @@ namespace TimeSheet.API.Extensions
         }
 
         /// <summary>
-        /// Add Jwt Authentication and Setting.
+        /// Configuration GraphQL Dependency and Life time.
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="Configuration"></param>
+        public static void ConfigureGraphQL(this IServiceCollection services)
+        {
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddScoped<AppSchema>();
+            services.AddScoped<AppQuery>();
+            services.AddScoped<EmployeeType>();
+
+            services.AddGraphQL(o => { o.ExposeExceptions = false; })
+                .AddGraphTypes(ServiceLifetime.Scoped);
+        }
+
+        /// <summary>
+        /// Setup Application Builder using GraphQL and GraphQL Ui Playground.
+        /// </summary>
+        /// <param name="app"></param>
+        public static void UseGraphQL(this IApplicationBuilder app)
+        {
+            app.UseGraphQL<AppSchema>();
+            app.UseGraphQLPlayground(options: new GraphQLPlaygroundOptions());
+        }
+
+        /// <summary>
+        /// Configuration Authentication Jwt type.
+        /// </summary>
+        /// <param name="services">The services conllection.</param>
+        /// <param name="Configuration">The configuration.</param>
         public static void ConfigureJwtAuthen(this IServiceCollection services, IConfiguration Configuration)
         {
             var option = new TokenValidationParameters
@@ -204,6 +227,11 @@ namespace TimeSheet.API.Extensions
              });
         }
 
+        /// <summary>
+        /// Configuration Services Cookie Authentication Jwt format.
+        /// </summary>
+        /// <param name="services">The services conllection.</param>
+        /// <param name="Configuration">The configuration.</param>
         public static void ConfigureCookieAuthen(this IServiceCollection services, IConfiguration Configuration)
         {
             var option = new TokenValidationParameters
