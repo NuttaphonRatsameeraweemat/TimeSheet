@@ -12,7 +12,7 @@ namespace TimeSheet.Bll.Interfaces
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        string BuildToken(string aduser);
+        string BuildToken(string username);
         /// <summary>
         /// Validate username and password is valid.
         /// </summary>

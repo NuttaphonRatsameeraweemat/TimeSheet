@@ -163,7 +163,7 @@ namespace TimeSheet.Bll
                 _unitOfWork.GetRepository<Data.Pocos.TimeSheet>().Add(data);
                 _unitOfWork.Complete();
 
-                item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; }).ToList();
+                item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; });
                 SaveTaskList(item.TaskList);
             }
         }
@@ -225,7 +225,7 @@ namespace TimeSheet.Bll
                 _unitOfWork.GetRepository<Data.Pocos.TimeSheet>().Update(data);
                 _unitOfWork.Complete();
 
-                item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; }).ToList();
+                item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; });
                 this.UpdateTaskList(item.TimeSheetId, item.TaskList);
             }
         }
@@ -242,8 +242,7 @@ namespace TimeSheet.Bll
             var taskAdd = taskList.Where(x => !data.Any(y => y.Id == x.Id)).ToList();
             var taskDelete = data.Where(x => !taskList.Any(y => y.Id == x.Id)).ToList();
             data = data.Where(x => taskList.Any(y => y.Id == x.Id)).ToList();
-
-            var taskUpdate = new List<Data.Pocos.TaskList>();
+            
             foreach (var item in data)
             {
                 var task = taskList.FirstOrDefault(x => x.Id == item.Id);

@@ -62,17 +62,17 @@ namespace TimeSheet.Bll
         /// <returns></returns>
         private string GetRoles(string email, IEnumerable<Data.Pocos.Role> dataRoles)
         {
-            string result = string.Empty;
+            StringBuilder result = new StringBuilder();
             var userRoles = _unitOfWork.GetRepository<Data.Pocos.UserRole>().Get(x => x.Email == email).ToList();
             foreach (var item in userRoles)
             {
                 var data = dataRoles.FirstOrDefault(x => x.RoleId == item.RoleId);
                 if (data != null)
                 {
-                    result += $"{data.RoleName} ";
+                    result.Append($"{data.RoleName} ");
                 }
             }
-            return result;
+            return result.ToString();
         }
 
         /// <summary>

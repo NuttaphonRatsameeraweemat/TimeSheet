@@ -85,13 +85,7 @@ namespace TimeSheet.Data.Repository.EF
                 throw new ObjectDisposedException(this.GetType().FullName);
             }
 
-            try
-            {
-                return _context.SaveChanges();
-            }
-            finally
-            {
-            }
+            return _context.SaveChanges();
         }
 
         /// <summary>
@@ -105,14 +99,7 @@ namespace TimeSheet.Data.Repository.EF
             {
                 throw new ObjectDisposedException(this.GetType().FullName);
             }
-
-            try
-            {
-                return await _context.SaveChangesAsync();
-            }
-            finally
-            {
-            }
+            return await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -121,6 +108,7 @@ namespace TimeSheet.Data.Repository.EF
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>

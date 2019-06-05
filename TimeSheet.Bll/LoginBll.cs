@@ -87,6 +87,7 @@ namespace TimeSheet.Bll
         /// <param name="data">The employee information.</param>
         private void ManageClaimsIdentity(Employee data, EmployeeViewModel model)
         {
+            StringBuilder roles = new StringBuilder();
             var userRoles = _unitOfWork.GetRepository<UserRole>().Get(x => x.Email == data.Email);
             var roleList = _unitOfWork.GetRepository<Role>().Get().ToList();
             _identity = new ClaimsIdentity();
@@ -97,8 +98,9 @@ namespace TimeSheet.Bll
                 var role = roleList.FirstOrDefault(x => x.RoleId == userRole.RoleId);
                 string roleName = role.RoleName ?? "Unknow";
                 _identity.AddClaim(new Claim(ClaimTypes.Role, roleName));
-                model.Role += $"{roleName} ";
+                roles.Append($"{roleName} ");
             }
+            model.Role = roles.ToString();
         }
 
         /// <summary>

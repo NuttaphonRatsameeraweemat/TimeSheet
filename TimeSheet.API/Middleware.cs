@@ -58,7 +58,7 @@ namespace TimeSheet.API
             catch (Exception ex)
             {
                 _logger.LogError(ex, "The Errors Message : ");
-                await HandleExceptionAsync(httpContext, ex);
+                await HandleExceptionAsync(httpContext);
             }
             EndInvoke(httpContext);
         }
@@ -88,12 +88,12 @@ namespace TimeSheet.API
         /// <param name="httpContext"></param>
         /// <param name="exception"></param>
         /// <returns></returns>
-        private Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
+        private Task HandleExceptionAsync(HttpContext httpContext)
         {
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
 
-            var model = new ResultViewModel { IsError = true , Message = $"{(int)httpContext.Response.StatusCode}" };
+            var model = new ResultViewModel { IsError = true , Message = $"{httpContext.Response.StatusCode}" };
 
             string json = JsonConvert.SerializeObject(model, new JsonSerializerSettings
             {

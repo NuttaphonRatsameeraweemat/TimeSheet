@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TimeSheet.Bll.Components
 {
-    public class ConstantValue
+    public static class ConstantValue
     {
         //Template format.
         public const string EMP_TEMPLATE = "{0} {1}";

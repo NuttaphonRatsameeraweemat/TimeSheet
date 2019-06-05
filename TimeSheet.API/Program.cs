@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace TimeSheet.API
 {
-    public class Program
+    public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            BuildWebHost(args).Run();
+            BuildWebHost().Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost() =>
+            WebHost.CreateDefaultBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()

@@ -55,7 +55,7 @@ namespace TimeSheet.API.Controllers
                 {
                     Path = "/",
                     HttpOnly = true, // to prevent XSS
-                    Secure = false, // set to true in production
+                    Secure = true, // set to true in production
                     Expires = System.DateTime.UtcNow.AddMinutes(600) // token life time
                 });
 
