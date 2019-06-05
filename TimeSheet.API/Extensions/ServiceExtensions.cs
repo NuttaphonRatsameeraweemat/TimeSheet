@@ -15,6 +15,10 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 
+using GraphQL;
+using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
+
 using TimeSheet.Helper.Interfaces;
 using TimeSheet.Helper;
 using TimeSheet.Bll.Interfaces;
@@ -22,10 +26,8 @@ using TimeSheet.Bll;
 using TimeSheet.Data;
 using TimeSheet.Data.Repository.Interfaces;
 using TimeSheet.Bll.Models;
-using GraphQL;
 using TimeSheet.GraphQL;
-using GraphQL.Server;
-using GraphQL.Server.Ui.Playground;
+
 
 namespace TimeSheet.API.Extensions
 {

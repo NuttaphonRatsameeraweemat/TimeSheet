@@ -88,12 +88,13 @@ namespace TimeSheet.Bll
         private void ManageClaimsIdentity(Employee data, EmployeeViewModel model)
         {
             var userRoles = _unitOfWork.GetRepository<UserRole>().Get(x => x.Email == data.Email);
+            var roleList = _unitOfWork.GetRepository<Role>().Get().ToList();
             _identity = new ClaimsIdentity();
             _identity.AddClaim(new Claim(ClaimTypes.Name, data.Email));
             _identity.AddClaim(new Claim(ConstantValue.CLAMIS_NAME, string.Format(ConstantValue.EMP_TEMPLATE, data.FirstName, data.LastName)));
             foreach (var userRole in userRoles)
             {
-                var role = _unitOfWork.GetRepository<Role>().Get(x => x.RoleId == userRole.RoleId).FirstOrDefault();
+                var role = roleList.FirstOrDefault(x => x.RoleId == userRole.RoleId);
                 string roleName = role.RoleName ?? "Unknow";
                 _identity.AddClaim(new Claim(ClaimTypes.Role, roleName));
                 model.Role += $"{roleName} ";
