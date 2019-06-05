@@ -163,7 +163,7 @@ namespace TimeSheet.Bll
                 _unitOfWork.GetRepository<Data.Pocos.TimeSheet>().Add(data);
                 _unitOfWork.Complete();
 
-                item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; });
+                item.TaskList = item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; }).ToList();
                 SaveTaskList(item.TaskList);
             }
         }
@@ -225,7 +225,7 @@ namespace TimeSheet.Bll
                 _unitOfWork.GetRepository<Data.Pocos.TimeSheet>().Update(data);
                 _unitOfWork.Complete();
 
-                item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; });
+                item.TaskList = item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; }).ToList();
                 this.UpdateTaskList(item.TimeSheetId, item.TaskList);
             }
         }
