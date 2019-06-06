@@ -111,7 +111,7 @@ namespace TimeSheet.Bll
         private bool ValidatePassword(LoginViewModel login)
         {
             var password = _unitOfWork.GetRepository<Password>().Get(x => x.Email == login.Username).FirstOrDefault();
-            var verifyPassword = new TimeSheet.Bll.Components.PasswordGenerator(password.Password1);
+            var verifyPassword = new PasswordGenerator(password != null ? password.Password1 : new byte[64]);
             return verifyPassword.Verify(login.Password);
         }
 
