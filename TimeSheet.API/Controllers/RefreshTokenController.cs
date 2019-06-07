@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheet.Bll.Interfaces;
@@ -8,7 +11,7 @@ namespace TimeSheet.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class RefreshTokenController : ControllerBase
     {
 
         #region Fields
@@ -27,13 +30,14 @@ namespace TimeSheet.API.Controllers
         #region Constructors
 
         /// <summary>
-        ///  Initializes a new instance of the <see cref="LoginController" /> class.
+        ///  Initializes a new instance of the <see cref="RefreshTokenController" /> class.
         /// </summary>
         /// <param name="login"></param>
-        public LoginController(ILoginBll login, IRefreshTokenBll refreshToken)
+        /// <param name="refreshToken"></param>
+        public RefreshTokenController(ILoginBll login, IRefreshTokenBll refreshToken)
         {
-            _login = login;
             _refreshToken = refreshToken;
+            _login = login;
         }
 
         #endregion
@@ -41,25 +45,20 @@ namespace TimeSheet.API.Controllers
         #region Methods
 
         [HttpPost]
-        [AllowAnonymous]
-        public IActionResult Login([FromBody]LoginViewModel auth)
+        public IActionResult RefreshToken(RefreshTokenViewModel model)
         {
             IActionResult response = Unauthorized();
-            var model = new EmployeeViewModel();
-            if (_login.Authenticate(auth, model))
+            var principal = _refreshToken.GetPrincipalFromExpiredToken(model.Token);
+            if (principal != null && _refreshToken.ValidateRefreshToken(principal.Identity.Name, model.RefreshToken))
             {
-                string token = _login.BuildToken();
-                var responseMessage = new
+                var result = new RefreshTokenViewModel
                 {
-                    Employee = model,
-                    Token = token,
-                    RefreshToken = _refreshToken.GenerateRefreshToken(auth.Username)
+                    Token = _login.BuildToken(principal),
+                    RefreshToken = _refreshToken.GenerateRefreshToken(principal.Identity.Name)
                 };
-                _login.SetupCookie(HttpContext, token);
-
-                response = Ok(responseMessage);
+                _login.SetupCookie(HttpContext, result.Token);
+                response = Ok(result);
             }
-
             return response;
         }
 

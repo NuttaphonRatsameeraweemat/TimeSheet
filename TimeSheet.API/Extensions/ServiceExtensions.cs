@@ -49,6 +49,16 @@ namespace TimeSheet.API.Extensions
         }
 
         /// <summary>
+        /// Dependency Injection Repository and UnitOfWork.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="Configuration">The configuration from settinfile.</param>
+        public static void ConfigureRedisCache(this IServiceCollection services, IConfiguration Configuration)
+        {
+            RedisCacheHandler.ConnectionString = Configuration["ConnectionStrings:RedisCacheConnection"];
+        }
+
+        /// <summary>
         /// Dependency Injection Class Business Logic Layer.
         /// </summary>
         /// <param name="services">The service collection.</param>
@@ -62,6 +72,7 @@ namespace TimeSheet.API.Extensions
             services.AddScoped<IProjectBll, ProjectBll>();
             services.AddScoped<IRoleBll, RoleBll>();
             services.AddScoped<IDashBoardBll, DashBoardBll>();
+            services.AddScoped<IRefreshTokenBll, RefreshTokenBll>();
             services.AddScoped<IManageToken, ManageToken>();
         }
 
@@ -122,7 +133,7 @@ namespace TimeSheet.API.Extensions
         /// Configuration Swaager Doc and Authentication type.
         /// </summary>
         /// <param name="services">The service collection.</param>
-        public static void AddSwagger(this IServiceCollection services)
+        public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
@@ -148,7 +159,7 @@ namespace TimeSheet.API.Extensions
         /// Setup Application Builder using Swagger and Swagger Ui.
         /// </summary>
         /// <param name="services">The service collection.</param>
-        public static void ConfigureSwagger(this IApplicationBuilder app)
+        public static void UseSwaager(this IApplicationBuilder app)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -212,6 +223,10 @@ namespace TimeSheet.API.Extensions
                      OnAuthenticationFailed = context =>
                      {
                          context.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                         {
+                             context.Response.Headers.Add("Token-Expired", "true");
+                         }
                          var model = new ResultViewModel
                          {
                              IsError = true,

@@ -24,6 +24,7 @@ namespace TimeSheet.API
         {
             //Add Configure Extension and Bll class.
             services.ConfigureRepository(Configuration);
+            services.ConfigureRedisCache(Configuration);
             services.ConfigureBll();
             services.ConfigureHttpContextAccessor();
             services.ConfigureLoggerService();
@@ -37,7 +38,7 @@ namespace TimeSheet.API
                 opt.Filters.Add(typeof(ValidateModelStateAttribute));
             });
             services.ConfigureGraphQL();
-            services.AddSwagger();
+            services.ConfigureSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +46,7 @@ namespace TimeSheet.API
         {
             app.UseAuthentication();
             app.ConfigureMiddleware();
-            app.ConfigureSwagger();
+            app.UseSwaager();
             app.UseCors("CorsPolicy");
             app.UseGraphQL();
             app.UseMvc();

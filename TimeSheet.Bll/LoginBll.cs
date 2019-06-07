@@ -1,16 +1,20 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+
+using System;
+using System.Text;
+using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.IdentityModel.Tokens.Jwt;
+
 using TimeSheet.Bll.Interfaces;
 using TimeSheet.Bll.Models;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using TimeSheet.Bll.Components;
 using TimeSheet.Data.Pocos;
 using TimeSheet.Data.Repository.Interfaces;
-using System.Linq;
-using TimeSheet.Bll.Components;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace TimeSheet.Bll
 {
@@ -118,20 +122,52 @@ namespace TimeSheet.Bll
         /// <summary>
         /// Create and setting payload on token.
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="principal">The ClaimsPrincipal.</param>
         /// <returns></returns>
-        public string BuildToken(string username)
+        public string BuildToken(ClaimsPrincipal principal = null)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
+            
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               expires: DateTime.Now.AddMinutes(30),
               signingCredentials: creds,
-              claims: _identity.Claims);
+              claims: this.GetClaimsPrincipal(principal));
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        /// <summary>
+        /// Get Claims Principal.
+        /// </summary>
+        /// <param name="principal">The ClaimsPrincipal.</param>
+        /// <returns></returns>
+        private List<Claim> GetClaimsPrincipal(ClaimsPrincipal principal)
+        {
+            var claims = new List<Claim>();
+            if (principal != null)
+            {
+                claims = principal.Claims.ToList();
+            }
+            else claims = _identity.Claims.ToList();
+            return claims;
+        }
+
+        /// <summary>
+        /// Setup response cookie and cookie options token.
+        /// </summary>
+        /// <param name="httpContext">The HttpContext.</param>
+        /// <param name="token">The token value.</param>
+        public void SetupCookie(HttpContext httpContext, string token)
+        {
+            httpContext.Response.Cookies.Append("access_token", token, new CookieOptions()
+            {
+                Path = "/",
+                HttpOnly = false, // to prevent XSS
+                Secure = false, // set to true in production
+                Expires = System.DateTime.UtcNow.AddMinutes(600) // token life time
+            });
         }
 
         #endregion
