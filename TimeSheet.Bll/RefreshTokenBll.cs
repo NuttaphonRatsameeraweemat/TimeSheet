@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -75,14 +76,14 @@ namespace TimeSheet.Bll
         /// <returns></returns>
         public string GenerateRefreshToken(string email)
         {
-            var randomNumber = new byte[32];
-            using (var rng = RandomNumberGenerator.Create())
+            string token;
+            using (RandomNumberGenerator rng = new RNGCryptoServiceProvider())
             {
-                rng.GetBytes(randomNumber);
-                var result = Convert.ToBase64String(randomNumber);
-                this.SaveRefreshToken(email, result);
-                return result;
+                byte[] tokenData = new byte[32];
+                rng.GetBytes(tokenData);
+                token = string.Join("", tokenData.Select(b => b.ToString("x2")).ToArray());
             }
+            return token;
         }
 
         /// <summary>
