@@ -83,6 +83,7 @@ namespace TimeSheet.Bll
                 rng.GetBytes(tokenData);
                 token = string.Join("", tokenData.Select(b => b.ToString("x2")).ToArray());
             }
+            this.SaveRefreshToken(email, token);
             return token;
         }
 
