@@ -6,6 +6,7 @@ using TimeSheet.Helper.Interfaces;
 using System;
 using System.Threading.Tasks;
 using TimeSheet.Bll.Models;
+using TimeSheet.Helper.Models;
 
 namespace TimeSheet.API
 {

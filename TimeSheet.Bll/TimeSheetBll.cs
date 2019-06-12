@@ -8,6 +8,8 @@ using TimeSheet.Bll.Components;
 using TimeSheet.Bll.Interfaces;
 using TimeSheet.Bll.Models;
 using TimeSheet.Data.Repository.Interfaces;
+using TimeSheet.Helper;
+using TimeSheet.Helper.Models;
 
 namespace TimeSheet.Bll
 {
@@ -91,7 +93,7 @@ namespace TimeSheet.Bll
         /// <param name="timeSheetId">The timesheet id.</param>
         /// <returns></returns>
         private IEnumerable<TaskListModel> GetTaskList(int timeSheetId)
-        { 
+        {
             return _mapper.Map<IEnumerable<TimeSheet.Data.Pocos.TaskList>, IEnumerable<TaskListModel>>(
                 _unitOfWork.GetRepository<TimeSheet.Data.Pocos.TaskList>().Get(x => x.TimeSheetId == timeSheetId));
         }
@@ -139,7 +141,7 @@ namespace TimeSheet.Bll
             var result = new ResultViewModel();
             using (TransactionScope scope = new TransactionScope())
             {
-                this.SaveTimeSheet(formData.TimeSheet, email);
+                this.SaveTimeSheet(formData.TimeSheet, email, ref result);
                 scope.Complete();
             }
             return result;
@@ -150,7 +152,7 @@ namespace TimeSheet.Bll
         /// </summary>
         /// <param name="timeSheetList">The TimeSheet information.</param>
         /// <param name="email">The owner timesheet and tasklist.</param>
-        private void SaveTimeSheet(List<TimeSheetModel> timeSheetList, string email)
+        private void SaveTimeSheet(List<TimeSheetModel> timeSheetList, string email, ref ResultViewModel result)
         {
             foreach (var item in timeSheetList)
             {
@@ -160,12 +162,32 @@ namespace TimeSheet.Bll
                     DateTimeStamp = ConvertToDateTime(item.DateTimeStamp)
                 };
 
-                _unitOfWork.GetRepository<Data.Pocos.TimeSheet>().Add(data);
-                _unitOfWork.Complete();
+                if (!IsAlreadyDateTimeStamp(data.DateTimeStamp.Value))
+                {
+                    _unitOfWork.GetRepository<Data.Pocos.TimeSheet>().Add(data);
+                    _unitOfWork.Complete();
 
-                item.TaskList = item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; }).ToList();
-                SaveTaskList(item.TaskList);
+                    item.TaskList = item.TaskList.Select(c => { c.TimeSheetId = data.Id; return c; }).ToList();
+                    SaveTaskList(item.TaskList);
+                }
+                else result = UtilityService.InitialResultError($"The {data.DateTimeStamp.Value.ToString("yyyy-MM-dd")} is already exits.");
             }
+        }
+
+        /// <summary>
+        /// Validate Exits Datetime stamp in storage.
+        /// </summary>
+        /// <param name="date">The target date.</param>
+        /// <returns></returns>
+        private bool IsAlreadyDateTimeStamp(DateTime date)
+        {
+            bool result = false;
+            var data = _unitOfWork.GetRepository<Data.Pocos.TimeSheet>().Get(x => x.DateTimeStamp.Value.Date == date.Date).FirstOrDefault();
+            if (data != null)
+            {
+                result = true;
+            }
+            return result;
         }
 
         /// <summary>
@@ -242,7 +264,7 @@ namespace TimeSheet.Bll
             var taskAdd = taskList.Where(x => !data.Any(y => y.Id == x.Id)).ToList();
             var taskDelete = data.Where(x => !taskList.Any(y => y.Id == x.Id)).ToList();
             data = data.Where(x => taskList.Any(y => y.Id == x.Id)).ToList();
-            
+
             foreach (var item in data)
             {
                 var task = taskList.FirstOrDefault(x => x.Id == item.Id);

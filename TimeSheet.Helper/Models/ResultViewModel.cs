@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TimeSheet.Bll.Models
+namespace TimeSheet.Helper.Models
 {
     public class ResultViewModel
     {

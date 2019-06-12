@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using TimeSheet.Bll.Models;
+using TimeSheet.Helper.Models;
 
 namespace TimeSheet.Bll.Interfaces
 {

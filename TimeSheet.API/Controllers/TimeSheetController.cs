@@ -50,7 +50,14 @@ namespace TimeSheet.API.Controllers
         [Route("Save")]
         public IActionResult Save(TimeSheetViewModel formData)
         {
-            return Ok(_timeSheet.Save(formData, _token.Email));
+            IActionResult response;
+            var result = _timeSheet.Save(formData, _token.Email);
+            if (result.IsError)
+            {
+                response = Conflict(result);
+            }
+            else response = Ok(result);
+            return response;
         }
 
         [HttpPost]

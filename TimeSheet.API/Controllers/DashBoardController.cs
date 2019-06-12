@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeSheet.Bll.Interfaces;
 using TimeSheet.Bll.Models;
+using TimeSheet.Helper.Models;
 
 namespace TimeSheet.API.Controllers
 {

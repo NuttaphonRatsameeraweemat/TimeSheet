@@ -27,7 +27,7 @@ using TimeSheet.Data;
 using TimeSheet.Data.Repository.Interfaces;
 using TimeSheet.Bll.Models;
 using TimeSheet.GraphQL;
-
+using TimeSheet.Helper.Models;
 
 namespace TimeSheet.API.Extensions
 {
