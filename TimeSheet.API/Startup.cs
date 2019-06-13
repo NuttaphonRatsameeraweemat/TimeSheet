@@ -31,6 +31,7 @@ namespace TimeSheet.API
             services.ConfigureCors();
             services.ConfigureJwtAuthen(Configuration);
             services.ConfigureCookieAuthen(Configuration);
+            services.ConfigureEmailService();
             services.AddAutoMapper();
             services.AddMvc(opt =>
             {

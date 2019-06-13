@@ -95,6 +95,15 @@ namespace TimeSheet.API.Extensions
         }
 
         /// <summary>
+        /// Dependency Injection Email Service. 
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        public static void ConfigureEmailService(this IServiceCollection services)
+        {
+            services.AddSingleton<IEmailService, EmailService>();
+        }
+
+        /// <summary>
         /// Config Api Routes Prefix.
         /// </summary>
         /// <param name="opts">The MvcOptions.</param>
