@@ -19,5 +19,10 @@ namespace TimeSheet.Bll.Components
         //Project Status
         public const string PROJECT_STATUS_ACTIVE = "ACTIVE";
         public const string PROJECT_STATUS_COMPLETE = "COMPLETE";
+        //Regular expresstion format date
+        public const string REGEX_DATE_FORMAT = @"^[0-9]{4}-[0-9]{2}-[0-9]{2}";
+        //Error Message
+        public const string ERR_DATE_INCORRECT_FORMAT = "The date value can't be empty and support only 'yyyy-MM-dd' format.";
+
     }
 }

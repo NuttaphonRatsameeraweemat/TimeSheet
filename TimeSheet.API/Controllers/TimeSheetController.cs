@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using TimeSheet.Bll.Interfaces;
 using TimeSheet.Bll.Models;
+using TimeSheet.Helper;
+using TimeSheet.Bll.Components;
 
 namespace TimeSheet.API.Controllers
 {
@@ -43,7 +48,13 @@ namespace TimeSheet.API.Controllers
         [HttpGet]
         public IActionResult Get(string date)
         {
-            return Ok(_timeSheet.Get(_token.Email, date));
+            IActionResult response;
+            if (!_timeSheet.IsDateMatchRegex(date))
+            {
+                response = BadRequest(UtilityService.InitialResultError(ConstantValue.ERR_DATE_INCORRECT_FORMAT));
+            }
+            else response = Ok(_timeSheet.Get(_token.Email, date));
+            return response;
         }
 
         [HttpPost]

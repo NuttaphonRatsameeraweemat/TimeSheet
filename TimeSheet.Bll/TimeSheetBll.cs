@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Transactions;
 using TimeSheet.Bll.Components;
 using TimeSheet.Bll.Interfaces;
@@ -328,6 +329,21 @@ namespace TimeSheet.Bll
         {
             _unitOfWork.GetRepository<Data.Pocos.TaskList>().RemoveRange(taskList);
             _unitOfWork.Complete();
+        }
+
+        /// <summary>
+        /// Validate date null or empty and regex is match or not.
+        /// </summary>
+        /// <param name="date">The date value.</param>
+        /// <returns></returns>
+        public bool IsDateMatchRegex(string date)
+        {
+            bool result = true;
+            if (string.IsNullOrEmpty(date) || !Regex.IsMatch(date, ConstantValue.REGEX_DATE_FORMAT))
+            {
+                result = false;
+            }
+            return result;
         }
 
         #endregion

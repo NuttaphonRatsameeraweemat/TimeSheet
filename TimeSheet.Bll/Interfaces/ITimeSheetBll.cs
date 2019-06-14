@@ -36,6 +36,12 @@ namespace TimeSheet.Bll.Interfaces
         /// <param name="formData">The TimeSheet and Tasklist information.</param>
         /// <returns></returns>
         ResultViewModel Delete(TimeSheetViewModel formData);
+        /// <summary>
+        /// Validate date null or empty and regex is match or not.
+        /// </summary>
+        /// <param name="date">The date value.</param>
+        /// <returns></returns>
+        bool IsDateMatchRegex(string date);
 
     }
 }
