@@ -68,7 +68,7 @@ namespace TimeSheet.Bll
         private IEnumerable<TimeSheetModel> GetTimeSheet(string email, string date)
         {
             var result = new List<TimeSheetModel>();
-            var startDate = SetToFirstDay(ConvertToDateTime(date));
+            var startDate = SetToFirstDay(UtilityService.ConvertToDateTime(date, ConstantValue.DATE_TIME_FORMAT));
             var endDate = SetToLastDay(startDate);
 
             var dataList = _unitOfWork.GetRepository<TimeSheet.Data.Pocos.TimeSheet>().Get(x => x.Email == email &&
@@ -80,7 +80,7 @@ namespace TimeSheet.Bll
                 result.Add(new TimeSheetModel
                 {
                     TimeSheetId = data.Id,
-                    DateTimeStamp = data.DateTimeStamp.Value.ToString("yyyy-MM-dd"),
+                    DateTimeStamp = data.DateTimeStamp.Value.ToString(ConstantValue.DATE_TIME_FORMAT),
                     TaskList = this.GetTaskList(data.Id).ToList()
                 });
             }
@@ -120,18 +120,6 @@ namespace TimeSheet.Bll
         }
 
         /// <summary>
-        /// Convert string to date time using yyyy-MM-dd format.
-        /// </summary>
-        /// <param name="value">The string datetime.</param>
-        /// <returns></returns>
-        private DateTime ConvertToDateTime(string value)
-        {
-            return DateTime.TryParseExact(value, ConstantValue.DATE_TIME_FORMAT,
-                                       System.Globalization.CultureInfo.InvariantCulture,
-                                       System.Globalization.DateTimeStyles.None, out DateTime temp) ? temp : throw new ArgumentException($"DateTime incorrect format : {value}");
-        }
-
-        /// <summary>
         /// Insert new timesheet and tasklist information to database.
         /// </summary>
         /// <param name="formData">The information of timesheet and tasklist.</param>
@@ -160,7 +148,7 @@ namespace TimeSheet.Bll
                 var data = new TimeSheet.Data.Pocos.TimeSheet
                 {
                     Email = email,
-                    DateTimeStamp = ConvertToDateTime(item.DateTimeStamp)
+                    DateTimeStamp = UtilityService.ConvertToDateTime(item.DateTimeStamp, ConstantValue.DATE_TIME_FORMAT)
                 };
 
                 if (!IsAlreadyDateTimeStamp(data.DateTimeStamp.Value))
@@ -242,7 +230,7 @@ namespace TimeSheet.Bll
                 {
                     Id = item.TimeSheetId,
                     Email = email,
-                    DateTimeStamp = ConvertToDateTime(item.DateTimeStamp)
+                    DateTimeStamp = UtilityService.ConvertToDateTime(item.DateTimeStamp, ConstantValue.DATE_TIME_FORMAT)
                 };
 
                 _unitOfWork.GetRepository<Data.Pocos.TimeSheet>().Update(data);

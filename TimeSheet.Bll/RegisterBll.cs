@@ -10,6 +10,7 @@ using System.Transactions;
 using System.Linq;
 using TimeSheet.Helper.Models;
 using TimeSheet.Helper;
+using TimeSheet.Bll.Components;
 
 namespace TimeSheet.Bll
 {
@@ -73,7 +74,7 @@ namespace TimeSheet.Bll
         private void SaveEmployee(RegisterViewModel formData)
         {
             var data = _mapper.Map<RegisterViewModel, Employee>(formData);
-            data.StartWorkingDay = UtilityService.ConvertToDateTime(formData.StartWorkingDayText);
+            data.StartWorkingDay = UtilityService.ConvertToDateTime(formData.StartWorkingDayText, ConstantValue.DATE_TIME_FORMAT);
             _unitOfWork.GetRepository<Employee>().Add(data);
             _unitOfWork.Complete();
         }
@@ -113,7 +114,7 @@ namespace TimeSheet.Bll
             if (data != null)
             {
                 result.IsError = true;
-                result.Message = "This email is already.";
+                result.Message = ConstantValue.ERR_EMAIL_IS_ALREADY_EXITS;
             }
             return result;
         }

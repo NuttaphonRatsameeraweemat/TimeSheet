@@ -26,15 +26,16 @@ namespace TimeSheet.Helper
         }
 
         /// <summary>
-        /// Initial Error Result and Message to return.
+        /// Convert string to date time using parameter format.
         /// </summary>
-        /// <param name="message">The message.</param>
+        /// <param name="value">The string datetime.</param>
+        /// <param name="format">The datetime format.</param>
         /// <returns></returns>
-        public static DateTime ConvertToDateTime(string value)
+        public static DateTime ConvertToDateTime(string value, string format)
         {
-            return DateTime.TryParseExact(value, "yyyy-MM-dd",
-                   System.Globalization.CultureInfo.InvariantCulture,
-                   System.Globalization.DateTimeStyles.None, out DateTime temp) ? temp : new DateTime();
+            return DateTime.TryParseExact(value, format,
+                                       System.Globalization.CultureInfo.InvariantCulture,
+                                       System.Globalization.DateTimeStyles.None, out DateTime temp) ? temp : throw new ArgumentException($"DateTime incorrect format : {value}");
         }
 
     }

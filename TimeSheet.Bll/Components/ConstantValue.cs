@@ -23,6 +23,7 @@ namespace TimeSheet.Bll.Components
         public const string REGEX_DATE_FORMAT = @"^[0-9]{4}-[0-9]{2}-[0-9]{2}";
         //Error Message
         public const string ERR_DATE_INCORRECT_FORMAT = "The date value can't be empty and support only 'yyyy-MM-dd' format.";
+        public const string ERR_EMAIL_IS_ALREADY_EXITS = "This email is already.";
 
     }
 }
