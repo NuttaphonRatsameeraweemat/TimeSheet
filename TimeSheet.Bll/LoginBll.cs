@@ -100,7 +100,7 @@ namespace TimeSheet.Bll
             foreach (var userRole in userRoles)
             {
                 var role = roleList.FirstOrDefault(x => x.RoleId == userRole.RoleId);
-                string roleName = role.RoleName ?? "Unknow";
+                string roleName = role != null ? role.RoleName : "Unknow";
                 _identity.AddClaim(new Claim(ClaimTypes.Role, roleName));
                 roles.Append($"{roleName} ");
             }
