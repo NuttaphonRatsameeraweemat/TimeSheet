@@ -25,5 +25,17 @@ namespace TimeSheet.Helper
             };
         }
 
+        /// <summary>
+        /// Initial Error Result and Message to return.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        public static DateTime ConvertToDateTime(string value)
+        {
+            return DateTime.TryParseExact(value, "yyyy-MM-dd",
+                   System.Globalization.CultureInfo.InvariantCulture,
+                   System.Globalization.DateTimeStyles.None, out DateTime temp) ? temp : new DateTime();
+        }
+
     }
 }

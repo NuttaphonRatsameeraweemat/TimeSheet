@@ -9,6 +9,7 @@ using TimeSheet.Data.Pocos;
 using System.Transactions;
 using System.Linq;
 using TimeSheet.Helper.Models;
+using TimeSheet.Helper;
 
 namespace TimeSheet.Bll
 {
@@ -72,6 +73,7 @@ namespace TimeSheet.Bll
         private void SaveEmployee(RegisterViewModel formData)
         {
             var data = _mapper.Map<RegisterViewModel, Employee>(formData);
+            data.StartWorkingDay = UtilityService.ConvertToDateTime(formData.StartWorkingDayText);
             _unitOfWork.GetRepository<Employee>().Add(data);
             _unitOfWork.Complete();
         }
