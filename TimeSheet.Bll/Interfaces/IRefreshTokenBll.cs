@@ -26,5 +26,11 @@ namespace TimeSheet.Bll.Interfaces
         /// <param name="refreshToken">The refresh token value.</param>
         /// <returns></returns>
         bool ValidateRefreshToken(string email, string refreshToken);
+        /// <summary>
+        /// Get Refresh Token.
+        /// </summary>
+        /// <param name="email">The owner refresh token.</param>
+        /// <returns></returns>
+        string GetRefreshToken(string email);
     }
 }

@@ -104,6 +104,22 @@ namespace TimeSheet.Bll
         }
 
         /// <summary>
+        /// Get Refresh Token.
+        /// </summary>
+        /// <param name="email">The owner refresh token.</param>
+        /// <returns></returns>
+        public string GetRefreshToken(string email)
+        {
+            string result = string.Empty;
+            var userInfo = RedisCacheHandler.GetValue<RefreshTokenModel>(email);
+            if (userInfo != null)
+            {
+                result = userInfo.RefreshToken;
+            }
+            return result; 
+        }
+
+        /// <summary>
         /// Save refresh token into storage.
         /// </summary>
         /// <param name="email">The owner refresh token.</param>

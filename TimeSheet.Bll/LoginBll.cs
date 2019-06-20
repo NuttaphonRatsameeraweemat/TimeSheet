@@ -104,7 +104,7 @@ namespace TimeSheet.Bll
                 _identity.AddClaim(new Claim(ClaimTypes.Role, roleName));
                 roles.Append($"{roleName} ");
             }
-            model.Role = roles.ToString();
+            model.Role = roles.ToString().Trim();
         }
 
         /// <summary>
