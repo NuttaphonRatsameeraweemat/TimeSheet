@@ -19,7 +19,7 @@ namespace TimeSheet.API.Controllers
         #region Fields
 
         /// <summary>
-        /// The Login manager provides Login functionality.
+        /// The timesheet manager provides Login functionality.
         /// </summary>
         private readonly ITimeSheetBll _timeSheet;
         /// <summary>
